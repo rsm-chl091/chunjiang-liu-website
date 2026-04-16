@@ -1,0 +1,184 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Chunjiang Liu",
+    "section": "",
+    "text": "Hi, I’m Chunjiang (Leo) Liu, a Business Analyst based in San Diego. I have experience working with large-scale behavioral and product data, building dashboards, defining KPIs, and turning analysis into actionable business insights. My background combines business analytics, machine learning, and cross-functional collaboration across health tech, education, and real estate.\n\n\nUniversity of California, San Diego M.S. in Business Analytics, Rady School of Management\nUniversity of California, San Diego B.S. in Cognitive Science, specialization in Machine Learning and Neural Computation\n\n\n\nOwaves Inc. | Business Analyst Intern | Nov 2025 – Mar 2026\nWorked on KPI standardization, funnel analysis, executive dashboards, and user behavior insights for a health tech platform.\nResilience Inc. | Business Analytics Lead Intern | Jul 2024 – Jun 2025\nLed an analytics team, standardized reporting processes, and supported organizational decision-making through KPI tracking and dashboards.\nZhongchi Group | Data Analyst | Nov 2020 – Sep 2022\nBuilt data systems, monitored conversion and engagement trends, and supported business operations across multiple offices.\n\n\n\nI’m originally from China and am currently based in San Diego, California. Over the past few years, I’ve studied and worked in analytics-related fields in the United States, building a strong interest in using data to solve real business problems. Beyond work and school, I enjoy movies, fitness, and exploring how data, technology, and human behavior connect in everyday life."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "resume.html",
+    "href": "resume.html",
+    "title": "My Resume",
+    "section": "",
+    "text": "Download PDF file."
+  },
+  {
+    "objectID": "index.html#education",
+    "href": "index.html#education",
+    "title": "Chunjiang Liu",
+    "section": "",
+    "text": "University of California, San Diego M.S. in Business Analytics, Rady School of Management\nUniversity of California, San Diego B.S. in Cognitive Science, specialization in Machine Learning and Neural Computation"
+  },
+  {
+    "objectID": "index.html#experience",
+    "href": "index.html#experience",
+    "title": "Chunjiang Liu",
+    "section": "",
+    "text": "Owaves Inc. | Business Analyst Intern | Nov 2025 – Mar 2026\nWorked on KPI standardization, funnel analysis, executive dashboards, and user behavior insights for a health tech platform.\nResilience Inc. | Business Analytics Lead Intern | Jul 2024 – Jun 2025\nLed an analytics team, standardized reporting processes, and supported organizational decision-making through KPI tracking and dashboards.\nZhongchi Group | Data Analyst | Nov 2020 – Sep 2022\nBuilt data systems, monitored conversion and engagement trends, and supported business operations across multiple offices."
+  },
+  {
+    "objectID": "index.html#about-me",
+    "href": "index.html#about-me",
+    "title": "Chunjiang Liu",
+    "section": "",
+    "text": "I’m originally from China and am currently based in San Diego, California. Over the past few years, I’ve studied and worked in analytics-related fields in the United States, building a strong interest in using data to solve real business problems. Beyond work and school, I enjoy movies, fitness, and exploring how data, technology, and human behavior connect in everyday life."
+  },
+  {
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "My Projects",
+    "section": "",
+    "text": "Customer Churn Prediction & Retention Strategy\n\n\nPredicted high-risk customers using XGBoost.Designed retention strategies that increased CLV by SGD 123.7M.\n\n\n\nChunjiang Liu\n\n\nMar 14, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nPredicting Air Pollution Across the U.S.\n\n\nPredicted nationwide air pollution levels using machine learning, achieving R² of 0.60 and enabling estimation in regions with limited monitoring data.\n\n\n\nChunjiang Liu\n\n\nDec 23, 2024\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "projects/project1/index.html",
+    "href": "projects/project1/index.html",
+    "title": "Customer Churn Prediction & Retention Strategy",
+    "section": "",
+    "text": "Telecom companies often struggle with customer churn, but reacting after customers leave is too late.\nIn this project, I built a predictive system to identify high-risk customers early and designed targeted retention strategies to reduce churn and increase long-term value."
+  },
+  {
+    "objectID": "projects/project1/index.html#sub-header",
+    "href": "projects/project1/index.html#sub-header",
+    "title": "Analysis of Cars",
+    "section": "",
+    "text": "Here is a plot:"
+  },
+  {
+    "objectID": "projects/project1/index.html#overview",
+    "href": "projects/project1/index.html#overview",
+    "title": "Customer Churn Prediction & Retention Strategy",
+    "section": "",
+    "text": "Telecom companies often struggle with customer churn, but reacting after customers leave is too late.\nIn this project, I built a predictive system to identify high-risk customers early and designed targeted retention strategies to reduce churn and increase long-term value."
+  },
+  {
+    "objectID": "projects/project1/index.html#business-problem",
+    "href": "projects/project1/index.html#business-problem",
+    "title": "Customer Churn Prediction & Retention Strategy",
+    "section": "🎯 Business Problem",
+    "text": "🎯 Business Problem\nS-Mobile aimed to shift from reactive retention to a proactive churn prevention strategy.\nKey questions included:\n\nWhich customers are most likely to churn?\nWhat factors drive churn behavior?\nHow can targeted actions reduce churn and improve revenue?"
+  },
+  {
+    "objectID": "projects/project1/index.html#approach",
+    "href": "projects/project1/index.html#approach",
+    "title": "Customer Churn Prediction & Retention Strategy",
+    "section": "🧩 Approach",
+    "text": "🧩 Approach\n\nData & Feature Engineering\n\nProcessed ~69,000 customer records across training, testing, and real-world datasets\n\nIntegrated multiple feature groups:\n\nUsage behavior (minutes, overage, roaming)\nAccount activity (tenure, service calls)\nDevice and network quality (handset age, dropped calls)\n\n\n\n\n\nPredictive Modeling\n\nBuilt and compared:\n\nLogistic Regression\n\nXGBoost (final model)\n\n\nFinal model performance (XGBoost): - AUC: 0.762\n- Captured nonlinear relationships and improved calibration\nTo address class imbalance: - Adjusted predicted probabilities from 50% training churn → 2% real-world churn\n\n\n\nKey Drivers of Churn\nModel interpretation revealed:\n\nOlder devices → significantly higher churn risk\n\nHigh overage usage → increased dissatisfaction\n\nShort tenure → early-stage churn risk\n\nStudents → highest-risk segment"
+  },
+  {
+    "objectID": "projects/project1/index.html#strategy-design",
+    "href": "projects/project1/index.html#strategy-design",
+    "title": "Customer Churn Prediction & Retention Strategy",
+    "section": "👨🏻‍💻 Strategy Design",
+    "text": "👨🏻‍💻 Strategy Design\nBased on model insights, I designed five targeted retention strategies:\n\nDevice upgrade program\n\nOverage plan optimization\n\nUsage recovery outreach\n\nProactive retention calls\n\nNetwork quality improvements"
+  },
+  {
+    "objectID": "projects/project1/index.html#results",
+    "href": "projects/project1/index.html#results",
+    "title": "Customer Churn Prediction & Retention Strategy",
+    "section": "📊 Results",
+    "text": "📊 Results\n\n\n\nStrategy\nNew Churn Rate\n\n\n\n\nBaseline\n1.85%\n\n\nDevice Refresh\n1.54%\n\n\nOther strategies\n1.75% – 1.83%\n\n\n\n👉 The device upgrade strategy delivered the strongest reduction in churn."
+  },
+  {
+    "objectID": "projects/project1/index.html#business-impact",
+    "href": "projects/project1/index.html#business-impact",
+    "title": "Customer Churn Prediction & Retention Strategy",
+    "section": "💰 Business Impact",
+    "text": "💰 Business Impact\n\n+SGD 123.72 customer lifetime value (CLV) per user\n\nScaled to 1M users → ~SGD 123.7M value creation\n\nThis demonstrates that targeted retention strategies significantly outperform reactive approaches."
+  },
+  {
+    "objectID": "projects/project1/index.html#key-takeaways",
+    "href": "projects/project1/index.html#key-takeaways",
+    "title": "Customer Churn Prediction & Retention Strategy",
+    "section": "🧠 Key Takeaways",
+    "text": "🧠 Key Takeaways\n\nPredictive models must translate into actionable strategies\n\nHandling class imbalance is critical in real-world applications\n\nLinking model outputs to financial metrics (CLV) makes insights decision-ready"
+  },
+  {
+    "objectID": "projects/project1/index.html#tools",
+    "href": "projects/project1/index.html#tools",
+    "title": "Customer Churn Prediction & Retention Strategy",
+    "section": "🛠 Tools",
+    "text": "🛠 Tools\nPython · XGBoost · Logistic Regression · Polars · Customer Analytics · CLV Modeling"
+  },
+  {
+    "objectID": "projects/project2/index.html",
+    "href": "projects/project2/index.html",
+    "title": "Predicting Air Pollution Across the U.S.",
+    "section": "",
+    "text": "This project applies machine learning to predict annual average air pollution (PM2.5) levels across the United States.\nBy combining environmental, geographic, and demographic data, the model estimates pollution in areas without monitoring stations and identifies key drivers of regional air quality differences."
+  },
+  {
+    "objectID": "projects/project2/index.html#overview",
+    "href": "projects/project2/index.html#overview",
+    "title": "Predicting Air Pollution Across the U.S.",
+    "section": "",
+    "text": "This project applies machine learning to predict annual average air pollution (PM2.5) levels across the United States.\nBy combining environmental, geographic, and demographic data, the model estimates pollution in areas without monitoring stations and identifies key drivers of regional air quality differences."
+  },
+  {
+    "objectID": "projects/project2/index.html#problem",
+    "href": "projects/project2/index.html#problem",
+    "title": "Predicting Air Pollution Across the U.S.",
+    "section": "🎯 Problem",
+    "text": "🎯 Problem\nAir pollution monitoring stations are sparsely distributed, especially outside major urban areas, making it difficult to measure pollution exposure at a granular level.\nThis creates gaps in environmental data that limit public health analysis and policy decisions.\nThe core challenge was:\n\nCan we predict PM2.5 levels without direct measurements?\nWhich variables best explain air pollution variation?"
+  },
+  {
+    "objectID": "projects/project2/index.html#approach",
+    "href": "projects/project2/index.html#approach",
+    "title": "Predicting Air Pollution Across the U.S.",
+    "section": "🧩 Approach",
+    "text": "🧩 Approach\nThe analysis integrates data from:\n\nEPA monitoring stations (876 locations)\nNASA satellite data\nU.S. Census data\n\nA Random Forest model was developed to capture nonlinear relationships.\n\nWorkflow\n\nData cleaning & feature engineering\n\nCorrelation analysis\n\nTrain/test split (2/3 training, 1/3 testing)\n\n4-fold cross-validation\n\nHyperparameter tuning\n\nA Linear Regression model was used as a baseline."
+  },
+  {
+    "objectID": "projects/project2/index.html#results",
+    "href": "projects/project2/index.html#results",
+    "title": "Predicting Air Pollution Across the U.S.",
+    "section": "📊 Results",
+    "text": "📊 Results\nThe final Random Forest model achieved:\n\nRMSE: 1.72\nR²: 0.60\n\n\nKey findings\n\nRandom Forest outperformed Linear Regression\n\nStronger performance in high-density regions\n\nImportant predictors:\n\nState\nRoad density\nImpervious surface area"
+  },
+  {
+    "objectID": "projects/project2/index.html#visualization",
+    "href": "projects/project2/index.html#visualization",
+    "title": "Predicting Air Pollution Across the U.S.",
+    "section": "📈 Visualization",
+    "text": "📈 Visualization\n\nThe model successfully captured regional pollution patterns across the U.S., with only minor deviations."
+  },
+  {
+    "objectID": "projects/project2/index.html#what-i-learned",
+    "href": "projects/project2/index.html#what-i-learned",
+    "title": "Predicting Air Pollution Across the U.S.",
+    "section": "🧠What I Learned",
+    "text": "🧠What I Learned\n\nMachine learning can fill gaps in spatial data\n\nCross-validation improves model robustness\n\nHandling multicollinearity is critical in high-dimensional data\n\nModel performance varies across geographic contexts"
+  },
+  {
+    "objectID": "projects/project2/index.html#tools",
+    "href": "projects/project2/index.html#tools",
+    "title": "Predicting Air Pollution Across the U.S.",
+    "section": "🛠 Tools",
+    "text": "🛠 Tools\nR · tidymodels · tidyverse · randomForest · ggplot2 · sf"
+  },
+  {
+    "objectID": "projects/project1/index.html#visualization",
+    "href": "projects/project1/index.html#visualization",
+    "title": "Customer Churn Prediction & Retention Strategy",
+    "section": "📈 Visualization",
+    "text": "📈 Visualization"
+  }
+]

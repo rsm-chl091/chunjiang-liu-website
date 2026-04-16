@@ -1,0 +1,45 @@
+---
+title: "Chunjiang Liu"
+image: "files/profile_pic.jpg"
+about:
+  template: solana
+  links:
+    - icon: envelope
+      href: mailto:Chl091@ucsd.edu
+    - icon: linkedin
+      href: https://www.linkedin.com/in/ucsd-chunjiang-liu
+    - icon: github
+      href: https://github.com/rsm-chl091?tab=repositories
+    - icon: file-earmark-person
+      href: files/resume.pdf
+
+---
+
+# Welcome to my website!
+
+Hi, I’m **Chunjiang (Leo) Liu**, a Business Analyst based in San Diego. I have experience working with large-scale behavioral and product data, building dashboards, defining KPIs, and turning analysis into actionable business insights. My background combines business analytics, machine learning, and cross-functional collaboration across health tech, education, and real estate.
+
+## Education
+
+University of California, San Diego <br>M.S. in Business Analytics, Rady School of Management<br>
+
+University of California, San Diego
+<br>B.S. in Cognitive Science, specialization in Machine Learning and Neural Computation<br>
+
+## Experience
+
+Owaves Inc. | Business Analyst Intern | Nov 2025 – Mar 2026
+
+Worked on KPI standardization, funnel analysis, executive dashboards, and user behavior insights for a health tech platform.
+
+Resilience Inc. | Business Analytics Lead Intern | Jul 2024 – Jun 2025
+
+Led an analytics team, standardized reporting processes, and supported organizational decision-making through KPI tracking and dashboards.
+
+Zhongchi Group | Data Analyst | Nov 2020 – Sep 2022
+
+Built data systems, monitored conversion and engagement trends, and supported business operations across multiple offices.
+
+## About Me
+
+I’m originally from China and am currently based in San Diego, California. Over the past few years, I’ve studied and worked in analytics-related fields in the United States, building a strong interest in using data to solve real business problems. Beyond work and school, I enjoy movies, fitness, and exploring how data, technology, and human behavior connect in everyday life.

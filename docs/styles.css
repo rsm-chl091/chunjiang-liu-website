@@ -1,0 +1,13 @@
+/* css styles */
+/* Project card description style */
+.quarto-grid-item .listing-description {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #555;
+  margin-top: 8px;
+}
+
+/* Optional: make title slightly tighter */
+.quarto-grid-item .listing-title {
+  margin-bottom: 6px;
+}
