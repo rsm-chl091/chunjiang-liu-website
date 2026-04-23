@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Chunjiang Liu">
-<meta name="dcterms.date" content="2026-04-15">
+<meta name="dcterms.date" content="2026-04-22">
 
 <title>A/B Testing a Call to Action – Chunjiang Liu</title>
 <style>
@@ -175,6 +175,10 @@ window.Quarto = {
     <a class="nav-link active" href="./hw1.html" aria-current="page"> 
 <span class="menu-text">HW1</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./hw2_questions.html"> 
+<span class="menu-text">HW2</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -226,7 +230,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 15, 2026</p>
+      <p class="date">April 22, 2026</p>
     </div>
   </div>
   
@@ -265,7 +269,7 @@ window.Quarto = {
 \theta = \pi_A - \pi_B = 0.04
 \]</span></p>
 <p>I then simulate 1,000 Bernoulli draws from each group, coding a sign-up as 1 and a non-sign-up as 0. These simulated observations will be used throughout the rest of the analysis.</p>
-<div id="f0b63e50" class="cell" data-execution_count="1">
+<div id="eb4daa95" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -336,7 +340,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="the-law-of-large-numbers">The Law of Large Numbers</h2>
 <p>The Law of Large Numbers states that as the sample size grows, the sample mean converges to the population mean. In this setting, that matters because our estimator is based on sample averages. If the sample is large enough, the observed difference in sign-up rates should move closer to the true difference between the two CTAs.</p>
 <p>To illustrate this idea, I compute the element-wise differences between the simulated CTA A and CTA B outcomes and then calculate the cumulative average of those differences. If the Law of Large Numbers is working as expected, the running average should fluctuate at first but gradually stabilize near the true value of <span class="math inline">\(\theta = 0.04\)</span>.</p>
-<div id="15cbbaff" class="cell" data-execution_count="2">
+<div id="c5fbf734" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -366,7 +370,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="bootstrap-standard-errors">Bootstrap Standard Errors</h2>
 <p>Now that I have a reasonable estimate of the difference in sign-up rates, the next question is how precise that estimate is. A point estimate alone is not enough, because it does not show how much uncertainty remains in the result. To address that, I estimate the standard error of the statistic and use it to construct a confidence interval.</p>
 <p>One useful way to measure uncertainty is the bootstrap. The bootstrap is a resampling method that repeatedly draws samples with replacement from the observed data, recalculates the statistic of interest for each resample, and uses the variation across those resampled statistics to estimate the standard error. This is helpful because it allows us to approximate sampling variability directly from the data rather than relying only on a closed-form formula.</p>
-<div id="10467b10" class="cell" data-execution_count="3">
+<div id="89af874b" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>bootstrap_estimates <span class="op">=</span> []</span>
@@ -468,7 +472,7 @@ SE(\hat{\theta}) = \sqrt{\frac{\hat{\pi}_A(1 - \hat{\pi}_A)}{n_A} + \frac{\hat{\
 <h2 class="anchored" data-anchor-id="the-central-limit-theorem">The Central Limit Theorem</h2>
 <p>The Central Limit Theorem states that as the sample size grows, the sampling distribution of the sample mean becomes approximately Normal, even when the underlying data are not Normally distributed. In this setting, each observation is Bernoulli, so the raw outcomes themselves are clearly not Normal. However, the difference in sample means across the two CTA groups should become more bell-shaped as the sample size increases.</p>
 <p>To illustrate this idea, I repeatedly simulate the estimator <span class="math inline">\(\hat{\theta} = \bar{X}_A - \bar{X}_B\)</span> for several different sample sizes. If the Central Limit Theorem holds, the distribution of these simulated estimates should look rougher and less symmetric when <span class="math inline">\(n\)</span> is small, but become smoother and more approximately Normal as <span class="math inline">\(n\)</span> becomes larger.</p>
-<div id="80cc3e95" class="cell" data-execution_count="4">
+<div id="288d60af" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sample_sizes <span class="op">=</span> [<span class="dv">25</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">500</span>]</span>
@@ -526,7 +530,7 @@ z = \frac{\hat{\theta} - 0}{SE(\hat{\theta})}.
 \]</span></p>
 <p>Under the null hypothesis, <span class="math inline">\(\hat{\theta}\)</span> is approximately Normal with mean 0 for large samples. Dividing by its standard error therefore produces a statistic that is approximately standard Normal. This gives a reference distribution for calculating a p-value, which tells us how unusual the observed result would be if the null hypothesis were true.</p>
 <p>Although this procedure is often described as a t-test in practice, the logic here is closer to a z-test. The exact t-distribution result applies when data are Normally distributed and the variance is estimated from the sample. In this setting, the outcomes are Bernoulli rather than Normal, so the justification instead comes from the Central Limit Theorem. For large samples, however, the standard Normal and t-distribution are very similar, so the practical conclusion is usually the same.</p>
-<div id="36baf2f2" class="cell" data-execution_count="5">
+<div id="b42afbe1" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
@@ -580,7 +584,7 @@ z = \frac{\hat{\theta} - 0}{SE(\hat{\theta})}.
 Y_i = \beta_0 + \beta_1 D_i + \varepsilon_i
 \]</span></p>
 <p>In this regression, <span class="math inline">\(\beta_0\)</span> is the expected value of <span class="math inline">\(Y_i\)</span> when <span class="math inline">\(D_i = 0\)</span>, so it is the mean sign-up rate for CTA B. The quantity <span class="math inline">\(\beta_0 + \beta_1\)</span> is the expected value of <span class="math inline">\(Y_i\)</span> when <span class="math inline">\(D_i = 1\)</span>, so it is the mean sign-up rate for CTA A. Therefore, <span class="math inline">\(\beta_1 = \pi_A - \pi_B = \theta\)</span>, and the OLS estimate <span class="math inline">\(\hat{\beta}_1\)</span> is numerically the same as the difference in sample means, <span class="math inline">\(\hat{\theta} = \bar{X}_A - \bar{X}_B\)</span>.</p>
-<div id="57c20a9f" class="cell" data-execution_count="6">
+<div id="147378ea" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
@@ -663,7 +667,7 @@ Y_i = \beta_0 + \beta_1 D_i + \varepsilon_i
 <h2 class="anchored" data-anchor-id="the-problem-with-peeking">The Problem with Peeking</h2>
 <p>A common temptation in A/B testing is to check the results repeatedly before the planned sample size has been reached. Suppose an analyst runs the experiment for up to 1,000 visitors per group, but instead of waiting until the end, checks the hypothesis test after every 100 observations per group. If any one of those interim tests is significant at the 5% level, the analyst stops the experiment and declares a winner.</p>
 <p>This is problematic under classical frequentist statistics because a single test at <span class="math inline">\(\alpha = 0.05\)</span> controls the false positive rate only when it is performed once, at the planned stopping point. If the analyst repeatedly tests the data while the experiment is still running, each additional peek creates another chance to reject the null hypothesis by random luck alone. As a result, the overall probability of making at least one false rejection becomes larger than the nominal 5% level.</p>
-<div id="fbb9fc74" class="cell" data-execution_count="7">
+<div id="c2decd1b" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pi_null_A <span class="op">=</span> <span class="fl">0.20</span></span>
