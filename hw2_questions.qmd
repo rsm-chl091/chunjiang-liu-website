@@ -1,0 +1,60 @@
+---
+title: "Replication of Karlan and List (2007)"
+subtitle: "Does Price Matter in Charitable Giving? Evidence from a Large-Scale Natural Field Experiment"
+author: Chunjiang Liu
+date: April 22, 2026
+format:
+  html:
+    code-fold: true
+    code-summary: "Show code"
+---
+
+## Introduction
+
+In this post, I replicate part of Karlan and List (2007), which studies whether matching grants increase charitable giving. The paper uses a large-scale natural field experiment in which more than 50,000 prior donors of a nonprofit organization received direct mail solicitations. Some donors were assigned to a control group, while others were assigned to treatment groups that received a matching grant offer. Within the treatment group, donors were also randomly assigned to different match ratios, different maximum match sizes, and different example donation amounts.
+
+This paper is interesting because it studies a practical fundraising question using randomized experimental design. In particular, it asks two related questions: first, does simply offering a match increase donations, and second, do larger match ratios such as 2:1 or 3:1 perform better than a 1:1 match? These questions matter for both nonprofit fundraising strategy and for understanding how donors respond to incentives.
+
+## Main Analysis
+
+I replicated three core parts of the paper: Table 1, Table 2A Panel A, and a basic regression related to Table 3.
+
+First, I replicated the balance check in Table 1. The treatment and control groups look very similar across prior donation history, demographic variables, and geographic indicators. For example, variables such as years since first donation, previous giving frequency, share living in red states, gender, and couple status are all very close between the two groups. This supports the idea that the random assignment was successful.
+
+Second, I replicated the main summary results from Table 2A Panel A. My results closely match the published paper. The response rate was about 1.8 percent in the control group and about 2.2 percent in the treatment group. Unconditional dollars raised per solicitation increased from about 0.813 in the control group to about 0.967 in the treatment group. Conditional on giving, the average donation amount was about 45.54 in the control group and about 43.87 in the treatment group. These results suggest that the matching grant mainly increased the probability of giving, rather than increasing the amount conditional on giving.
+
+I also replicated the treatment breakdown by match ratio. The results show that response rates for the 1:1, 2:1, and 3:1 match treatments were all very similar. Unconditional donation amounts also do not show a steady increase with larger ratios. This is one of the central findings of the paper: having a match matters, but making the match more generous does not appear to create additional gains.
+
+Finally, I estimated a simple regression with gave as the dependent variable and treatment as the main independent variable. The treatment coefficient is positive, around 0.0042, which means that the match increased giving probability by about 0.42 percentage points. I also estimated a second model allowing the treatment effect to vary with the match ratio. In that regression, the interaction term was not statistically significant, which is consistent with the paper’s conclusion that higher match ratios did not meaningfully outperform the 1:1 benchmark.
+
+## Something Additional
+
+As an additional analysis, I visualized the response rate difference between the treatment and control groups and then compared response rates across different match ratios.
+
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_stata("data/AERtables1-5.dta")
+
+df.groupby("treatment")["gave"].mean().plot(kind="bar")
+plt.title("Response Rate: Treatment vs Control")
+plt.ylabel("Probability of Giving")
+plt.xlabel("Treatment")
+plt.show()
+```
+
+This figure shows that the treatment group had a higher response rate than the control group. This visual pattern is consistent with the paper’s main finding that offering a matching grant increases the probability of giving.
+
+I also plotted response rates across the three match ratios within the treatment group.
+
+```{python}
+treat_only = df[df["treatment"] == 1]
+
+treat_only.groupby("ratio")["gave"].mean().plot(kind="bar")
+plt.title("Response Rate by Match Ratio")
+plt.ylabel("Probability of Giving")
+plt.xlabel("Match Ratio")
+plt.show()
+```
+This second figure shows that the response rates for the 1:1, 2:1, and 3:1 match treatments are very similar. This supports the paper’s conclusion that larger match ratios did not generate meaningfully stronger effects than the 1:1 benchmark.
