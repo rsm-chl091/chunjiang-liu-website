@@ -199,6 +199,7 @@ for i, n in enumerate(sample_sizes):
     axes[i].set_xlabel(r"$\hat{\theta}$")
     axes[i].set_ylabel("Frequency")
 
+fig.suptitle("Sampling Distribution of θ̂ at Different Sample Sizes", fontsize=14, y=1.00)
 plt.tight_layout()
 plt.show()
 ```
