@@ -147,6 +147,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link active" href="./hw2_questions.html" aria-current="page"> 
 <span class="menu-text">HW2</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./projects/project_3_mle/hw3_questions.html"> 
+<span class="menu-text">HW3</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -220,7 +224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="something-additional" class="level2">
 <h2 class="anchored" data-anchor-id="something-additional">Something Additional</h2>
 <p>As an additional analysis, I visualized the response rate difference between the treatment and control groups and then compared response rates across different match ratios.</p>
-<div id="496108c5" class="cell" data-execution_count="1">
+<div id="783352ac" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -244,7 +248,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>This figure shows that the treatment group had a higher response rate than the control group. This visual pattern is consistent with the paper’s main finding that offering a matching grant increases the probability of giving.</p>
 <p>I also plotted response rates across the three match ratios within the treatment group.</p>
-<div id="8efc81ad" class="cell" data-execution_count="2">
+<div id="c2953f35" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>treat_only <span class="op">=</span> df[df[<span class="st">"treatment"</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
