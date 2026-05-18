@@ -16,6 +16,8 @@ website:
         text: HW1
       - href: hw2_questions.qmd
         text: HW2
+      - href: projects/project_3_mle/hw3_questions.qmd
+        text: HW3
 
 format:
   html:
