@@ -1,0 +1,822 @@
+---
+title: "MaxDiff Analysis of MSBA Class Preferences"
+subtitle: "Counts, MLE, and Bayesian estimation of the MNL model"
+author: Chunjiang Liu
+date: May 28, 2026
+format:
+  html:
+    code-fold: true
+    code-summary: "Show code"
+---
+
+
+## Introduction
+
+MaxDiff, also known as Best-Worst Scaling, is a survey method used to measure relative preferences among a set of items. Instead of asking respondents to rate every item on a numeric scale, MaxDiff presents a small subset of items at a time and asks respondents to choose the option they prefer most and the option they prefer least. In this assignment, each task shows four possible MSBA classes, and students repeatedly make best-worst choices across multiple tasks.
+
+This format is useful because people are often better at making trade-offs than assigning consistent numerical ratings. A 1–10 rating scale can be difficult to interpret because different respondents may use the scale differently, and many items may receive similarly high scores. MaxDiff forces respondents to separate the options more clearly by identifying both a strongest and weakest preference within each choice set.
+
+In this assignment, the ten items are the ten core MSBA classes at UCSD Rady. The goal is to estimate students’ relative preferences for these classes using three approaches. I begin with a simple counts analysis, comparing how often each class was selected as most preferred versus least preferred. I then estimate a multinomial logit model using maximum likelihood, which models the probability that a class is chosen based on its underlying utility. Finally, I estimate the same MNL model using a Bayesian approach with a Metropolis-Hastings sampler.
+
+I expect the three methods to tell a broadly similar story about which classes are most and least preferred. However, they differ in what they provide analytically. The counts analysis gives a simple descriptive ranking, the maximum likelihood model estimates preference strength through utility parameters, and the Bayesian model adds a way to describe uncertainty around those estimates.
+
+
+## The Data
+
+The raw dataset contains one row for each class option shown to a respondent in a MaxDiff task. Each row includes the respondent ID, the task number, the position of the option on the screen, the item number, and the response. A response value of `1` means the class was selected as the most preferred option, `-1` means it was selected as the least preferred option, and `0` means the class was shown but not selected as either best or worst.
+
+The class names are stored in a separate item-label file. I joined this file to the main survey data so that the numeric item IDs could be interpreted as actual MSBA class names.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(knitr)
+
+choices <- read_csv("maxdiff_design_and_choices.csv", show_col_types = FALSE)
+item_labels <- read_csv("maxdiff_item_labels.csv", show_col_types = FALSE)
+
+choices_labeled <- choices %>%
+  left_join(
+    item_labels %>%
+      select(`Item #`, class_name = Item),
+    by = c("Item" = "Item #")
+  )
+
+sanity_check <- choices_labeled %>%
+  group_by(`Record ID`, Task) %>%
+  summarise(
+    n_best = sum(Response == 1),
+    n_worst = sum(Response == -1),
+    n_neutral = sum(Response == 0),
+    n_rows = n(),
+    valid_task = n_best == 1 & n_worst == 1 & n_neutral == 2 & n_rows == 4,
+    .groups = "drop"
+  )
+
+valid_task_ids <- sanity_check %>%
+  filter(valid_task) %>%
+  select(`Record ID`, Task)
+
+choices_clean <- choices_labeled %>%
+  semi_join(valid_task_ids, by = c("Record ID", "Task"))
+```
+
+Before estimating preferences, I checked whether each task followed the expected MaxDiff structure. A valid task should include four shown classes, exactly one best choice, exactly one worst choice, and two unselected options. The raw file also included additional two-item tasks that did not follow this structure, so I filtered the data to keep only the valid four-item MaxDiff tasks.
+
+```{r}
+#| echo: true
+
+sanity_check %>%
+  summarise(
+    `Total tasks in raw file` = n(),
+    `Valid MaxDiff tasks` = sum(valid_task),
+    `Excluded tasks` = sum(!valid_task)
+  ) %>%
+  kable()
+```
+
+After filtering, the cleaned dataset contains 85 respondents, 8 valid MaxDiff tasks per respondent, 4 class options per task, and 10 MSBA class items. This cleaned dataset is used for the counts analysis, the maximum likelihood MNL model, and the Bayesian MNL model.
+
+```{r}
+#| echo: true
+
+data_summary_clean <- tibble(
+  Statistic = c(
+    "Number of respondents (N)",
+    "Valid tasks per respondent (T)",
+    "Items per task (J)",
+    "Total class items"
+  ),
+  Value = c(
+    choices_clean %>%
+      distinct(`Record ID`) %>%
+      nrow(),
+    choices_clean %>%
+      distinct(`Record ID`, Task) %>%
+      count(`Record ID`, name = "tasks") %>%
+      pull(tasks) %>%
+      unique() %>%
+      paste(collapse = ", "),
+    choices_clean %>%
+      count(`Record ID`, Task, name = "items_per_task") %>%
+      pull(items_per_task) %>%
+      unique() %>%
+      paste(collapse = ", "),
+    choices_clean %>%
+      distinct(Item) %>%
+      nrow()
+  )
+)
+
+kable(data_summary_clean)
+```
+
+I also verified that the cleaned data now satisfies the expected best-worst structure for every task.
+
+```{r}
+#| echo: true
+
+choices_clean %>%
+  group_by(`Record ID`, Task) %>%
+  summarise(
+    n_best = sum(Response == 1),
+    n_worst = sum(Response == -1),
+    n_neutral = sum(Response == 0),
+    n_rows = n(),
+    valid_task = n_best == 1 & n_worst == 1 & n_neutral == 2 & n_rows == 4,
+    .groups = "drop"
+  ) %>%
+  summarise(
+    `Total clean tasks` = n(),
+    `Tasks passing check` = sum(valid_task),
+    `Tasks failing check` = sum(!valid_task)
+  ) %>%
+  kable()
+```
+
+Finally, I checked how often each class was shown across the cleaned survey data. The exposure counts are roughly balanced, which is important because large exposure differences could otherwise affect how often a class is selected as best or worst.
+
+```{r}
+#| echo: true
+
+shown_counts <- choices_clean %>%
+  count(Item, class_name, name = "times_shown") %>%
+  arrange(desc(times_shown))
+
+kable(shown_counts)
+```
+
+```{r}
+#| echo: true
+#| fig-cap: "Number of times each MSBA class was shown in the cleaned MaxDiff data."
+#| fig-width: 9
+#| fig-height: 6
+
+shown_counts %>%
+  ggplot(aes(x = reorder(class_name, times_shown), y = times_shown)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    x = "Class",
+    y = "Times shown",
+    title = "Class Exposure in the MaxDiff Design"
+  )
+```
+
+
+## Counts Analysis
+
+A simple way to summarize the MaxDiff responses is to compare how often each class was selected as the most preferred option with how often it was selected as the least preferred option. For each class, I calculate the percentage of times it was chosen as best out of the number of times it was shown, then subtract the percentage of times it was chosen as worst. A higher score indicates a stronger positive preference, while a lower score indicates that the class was more often selected as least preferred.
+
+$$
+\text{score}_j = \text{best rate}_j - \text{worst rate}_j
+$$
+
+This counts-based approach is easy to interpret and provides a useful first look at the preference ranking before fitting the multinomial logit model.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+counts_scores <- choices_clean %>%
+  group_by(Item, class_name) %>%
+  summarise(
+    times_shown = n(),
+    times_best = sum(Response == 1),
+    times_worst = sum(Response == -1),
+    pct_best = times_best / times_shown,
+    pct_worst = times_worst / times_shown,
+    score = pct_best - pct_worst,
+    .groups = "drop"
+  ) %>%
+  arrange(desc(score))
+
+counts_scores %>%
+  mutate(
+    pct_best = round(pct_best, 3),
+    pct_worst = round(pct_worst, 3),
+    score = round(score, 3)
+  ) %>%
+  kable(
+    col.names = c(
+      "Item",
+      "Class",
+      "Times shown",
+      "Times best",
+      "Times worst",
+      "% best",
+      "% worst",
+      "Score"
+    )
+  )
+```
+
+```{r}
+#| echo: true
+#| fig-cap: "Counts-based MaxDiff preference scores for the ten MSBA classes."
+#| fig-width: 9
+#| fig-height: 6
+
+counts_scores %>%
+  ggplot(aes(x = reorder(class_name, score), y = score)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    x = "Class",
+    y = "Counts score (% best - % worst)",
+    title = "Counts-Based Preference Scores"
+  )
+```
+
+The counts analysis suggests that **MGTA 495 Marketing Analytics** is the strongest class by a clear margin. It was selected as best far more often than it was selected as worst, giving it the highest positive score. **MGTA 453 Business Analytics** and **MGTA 455 Customer Analytics** also have positive scores, suggesting relatively strong student preference.
+
+At the lower end, **MGTA 444 Analytics Consulting** has the most negative score, followed by **MGTA 451 Marketing/Finance/Operations** and **MGTA 403 AI Math, Programming, and Analytics**. These classes were selected as worst more often than they were selected as best. The middle of the ranking is closer together, especially for classes such as **MGTA 454 Capstone Project** and **MGTA 464 SQL**, whose scores are near zero. This suggests that they may be more middle-of-the-pack in this simple descriptive analysis.
+
+
+## From MaxDiff Data to MNL Choices
+
+The MaxDiff survey can be represented as a sequence of multinomial logit choice problems. In each task, a respondent sees four classes and makes two decisions. First, they choose the class they prefer most from the full set of four. Then, after the best item is removed, the worst choice can be treated as a second choice problem among the remaining three items, where lower-utility items are more likely to be selected.
+
+The MNL model assigns each class $j$ a utility coefficient $\beta_j$. Higher values of $\beta_j$ indicate stronger preference. If a task shows four classes $\{a, b, c, d\}$, the probability that class $b$ is selected as the best option is:
+
+$$
+P(\text{best} = b) =
+\frac{\exp(\beta_b)}
+{\exp(\beta_a) + \exp(\beta_b) + \exp(\beta_c) + \exp(\beta_d)}
+$$
+
+The worst choice is modeled by flipping the sign of the utilities. After class $b$ has been selected as best and removed from the set, the probability that class $c$ is selected as worst from the remaining classes is:
+
+$$
+P(\text{worst} = c \mid \text{best} = b) =
+\frac{\exp(-\beta_c)}
+{\exp(-\beta_a) + \exp(-\beta_c) + \exp(-\beta_d)}
+$$
+
+This means that each MaxDiff task provides two MNL choice observations: one best-choice observation from the full set of four classes and one worst-choice observation from the remaining three classes.
+
+One normalization is needed because the MNL probabilities do not change if the same constant is added to every utility coefficient. Only relative utility differences are identified, not the absolute level of utility. Since there are 10 classes, only 9 independent coefficients can be estimated. I set $\beta_1 = 0$ as the reference class and estimate the remaining coefficients relative to that class.
+
+Before writing the likelihood function, I reshaped the cleaned MaxDiff data into one row per respondent-task. Each row stores the four classes shown in that task, the class selected as best, and the class selected as worst. This structure makes it easier to iterate over tasks when computing the MNL log-likelihood.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+mnl_tasks <- choices_clean %>%
+  group_by(`Record ID`, Task) %>%
+  summarise(
+    shown_items = list(Item),
+    best_item = Item[Response == 1],
+    worst_item = Item[Response == -1],
+    .groups = "drop"
+  )
+
+mnl_tasks %>%
+  slice_head(n = 5) %>%
+  mutate(
+    shown_items = map_chr(shown_items, ~ paste(.x, collapse = ", "))
+  ) %>%
+  kable(
+    col.names = c(
+      "Record ID",
+      "Task",
+      "Shown items",
+      "Best item",
+      "Worst item"
+    )
+  )
+```
+
+The resulting dataset has one row for each valid MaxDiff task. Because there are 85 respondents and 8 valid tasks per respondent, this produces 680 task-level observations. Each observation contributes both a best-choice component and a worst-choice component to the likelihood function.
+
+```{r}
+#| echo: true
+
+mnl_tasks %>%
+  summarise(
+    `Task-level observations` = n(),
+    `Best-choice observations` = n(),
+    `Worst-choice observations` = n(),
+    `Total MNL choice components` = 2 * n()
+  ) %>%
+  kable()
+```
+
+
+
+## MNL via Maximum Likelihood
+
+The counts analysis provides a useful descriptive ranking, but it does not explicitly model the choice process. The multinomial logit model does this by assigning each class a utility value and converting those utilities into choice probabilities. For each MaxDiff task, the likelihood has two parts: the probability of the observed best choice from the full set of four classes, and the probability of the observed worst choice from the remaining three classes after flipping the sign of the utilities.
+
+For a task where $j_b^*$ is the class selected as best and $j_w^*$ is the class selected as worst, the log-likelihood is:
+
+$$
+\ell(\boldsymbol{\beta}) =
+\sum_{\text{tasks}}
+\left[
+\beta_{j_b^*}
+-
+\log \left( \sum_{j \in \text{shown}} \exp(\beta_j) \right)
+-
+\beta_{j_w^*}
+-
+\log \left( \sum_{j \in \text{shown} \setminus \{j_b^*\}} \exp(-\beta_j) \right)
+\right]
+$$
+
+As before, I normalize the first class utility to zero by setting $\beta_1 = 0$. The remaining nine utility coefficients are estimated by maximizing the log-likelihood.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+log_sum_exp <- function(x) {
+  m <- max(x)
+  m + log(sum(exp(x - m)))
+}
+
+ll_mnl <- function(beta_free, tasks) {
+  beta <- c(0, beta_free)
+  total_ll <- 0
+
+  for (i in seq_len(nrow(tasks))) {
+    shown <- tasks$shown_items[[i]]
+    best <- tasks$best_item[i]
+    worst <- tasks$worst_item[i]
+
+    beta_shown <- beta[shown]
+
+    best_ll <- beta[best] - log_sum_exp(beta_shown)
+
+    remaining <- setdiff(shown, best)
+    worst_ll <- -beta[worst] - log_sum_exp(-beta[remaining])
+
+    total_ll <- total_ll + best_ll + worst_ll
+  }
+
+  total_ll
+}
+
+mle_out <- optim(
+  par = rep(0, 9),
+  fn = ll_mnl,
+  tasks = mnl_tasks,
+  method = "BFGS",
+  hessian = TRUE,
+  control = list(fnscale = -1, maxit = 1000)
+)
+```
+
+The optimization converged successfully, so I use the estimated coefficients to calculate standard errors and shares of preference. The standard errors come from the inverse of the negative Hessian matrix. The shares of preference transform the utility estimates into a more interpretable scale: if all ten classes were shown together, the share represents the model-implied fraction of choices each class would receive.
+
+$$
+\hat{s}_j =
+\frac{\exp(\hat{\beta}_j)}
+{\sum_{k=1}^{10} \exp(\hat{\beta}_k)}
+$$
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+beta_hat <- c(0, mle_out$par)
+
+vcov_mle <- solve(-mle_out$hessian)
+se_hat <- c(NA, sqrt(diag(vcov_mle)))
+
+pref_share <- exp(beta_hat) / sum(exp(beta_hat))
+
+mle_results <- tibble(
+  Item = 1:10,
+  beta_hat = beta_hat,
+  se = se_hat,
+  preference_share = pref_share
+) %>%
+  left_join(
+    item_labels %>%
+      select(Item = `Item #`, class_name = Item),
+    by = "Item"
+  ) %>%
+  select(Item, class_name, beta_hat, se, preference_share) %>%
+  arrange(desc(preference_share))
+
+mle_results %>%
+  mutate(
+    beta_hat = round(beta_hat, 3),
+    se = round(se, 3),
+    preference_share = round(preference_share, 3)
+  ) %>%
+  kable(
+    col.names = c(
+      "Item",
+      "Class",
+      "Beta estimate",
+      "Standard error",
+      "Preference share"
+    )
+  )
+```
+
+```{r}
+#| echo: true
+#| fig-cap: "MLE-estimated shares of preference from the multinomial logit model."
+#| fig-width: 9
+#| fig-height: 6
+
+mle_results %>%
+  ggplot(aes(x = reorder(class_name, preference_share), y = preference_share)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    x = "Class",
+    y = "Preference share",
+    title = "MLE Preference Shares"
+  )
+```
+
+The maximum likelihood estimates tell a similar story to the counts analysis. **MGTA 495 Marketing Analytics** remains the most preferred class by a large margin, with the highest estimated utility and the largest preference share. **MGTA 453 Business Analytics** and **MGTA 455 Customer Analytics** also remain near the top of the ranking.
+
+The bottom of the ranking is also similar. **MGTA 444 Analytics Consulting** has the lowest estimated preference share, followed by **MGTA 451 Marketing/Finance/Operations** and **MGTA 403 AI Math, Programming, and Analytics**.
+
+In this dataset, the MLE ranking is identical to the counts ranking. This agreement suggests that the simple counts score already captures the main preference pattern in the data. The MNL model still adds value because it models the choice process directly and converts the utilities into preference shares, which are easier to compare across classes. The middle-ranked classes, such as **MGTA 454 Capstone Project** and **MGTA 464 SQL**, have very similar preference shares, so small changes in the data could potentially change their relative ranking even though the current ranking is the same across methods.
+
+```{r}
+#| echo: true
+
+counts_rank <- counts_scores %>%
+  mutate(counts_rank = row_number()) %>%
+  select(Item, counts_rank, counts_score = score)
+
+mle_rank <- mle_results %>%
+  mutate(mle_rank = row_number()) %>%
+  select(Item, mle_rank, preference_share)
+
+rank_comparison <- counts_rank %>%
+  left_join(mle_rank, by = "Item") %>%
+  left_join(
+    item_labels %>%
+      select(Item = `Item #`, class_name = Item),
+    by = "Item"
+  ) %>%
+  select(Item, class_name, counts_score, counts_rank, preference_share, mle_rank) %>%
+  arrange(mle_rank)
+
+rank_comparison %>%
+  mutate(
+    counts_score = round(counts_score, 3),
+    preference_share = round(preference_share, 3)
+  ) %>%
+  kable(
+    col.names = c(
+      "Item",
+      "Class",
+      "Counts score",
+      "Counts rank",
+      "MLE preference share",
+      "MLE rank"
+    )
+  )
+```
+
+
+The optimizer returned a convergence code of `0`, indicating that the maximum likelihood estimation converged successfully.
+
+
+## MNL via Bayesian Estimation
+
+The maximum likelihood model provides point estimates and standard errors for the MNL utilities. A Bayesian version of the same model uses the same likelihood, but combines it with a prior distribution to form a posterior distribution over the utility coefficients. This allows us to summarize uncertainty directly from posterior draws.
+
+The posterior distribution is proportional to the likelihood multiplied by the prior:
+
+$$
+\pi(\boldsymbol{\beta} \mid \boldsymbol{y}) \propto L(\boldsymbol{\beta}) \cdot \pi(\boldsymbol{\beta})
+$$
+
+I use a weakly informative normal prior for the nine free utility coefficients:
+
+$$
+\boldsymbol{\beta}_{2:10} \sim N(\boldsymbol{0}, 10I)
+$$
+
+As in the maximum likelihood model, I set $\beta_1 = 0$ for identification. I then use a random-walk Metropolis-Hastings sampler to draw from the posterior distribution.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+set.seed(495)
+
+log_post_mnl <- function(beta_free, tasks) {
+  ll_mnl(beta_free, tasks) +
+    sum(dnorm(beta_free, mean = 0, sd = sqrt(10), log = TRUE))
+}
+
+mh_mnl <- function(beta0, n_iter, step, tasks) {
+  k <- length(beta0)
+  draws <- matrix(NA, nrow = n_iter, ncol = k)
+  beta <- beta0
+  lp <- log_post_mnl(beta, tasks)
+  accept <- 0
+
+  for (t in seq_len(n_iter)) {
+    beta_star <- beta + rnorm(k, mean = 0, sd = step)
+    lp_star <- log_post_mnl(beta_star, tasks)
+
+    if (log(runif(1)) < lp_star - lp) {
+      beta <- beta_star
+      lp <- lp_star
+      accept <- accept + 1
+    }
+
+    draws[t, ] <- beta
+  }
+
+  list(
+    draws = draws,
+    accept_rate = accept / n_iter
+  )
+}
+
+mh_fit <- mh_mnl(
+  beta0 = mle_out$par,
+  n_iter = 20000,
+  step = 0.08,
+  tasks = mnl_tasks
+)
+
+burn_in <- 5000
+post_free <- mh_fit$draws[(burn_in + 1):nrow(mh_fit$draws), ]
+post_full <- cbind(0, post_free)
+colnames(post_full) <- paste0("beta_", 1:10)
+```
+
+The sampler was run for 20,000 iterations, and the first 5,000 draws were discarded as burn-in. The final acceptance rate was:
+
+```{r}
+#| echo: true
+
+tibble(
+  `MCMC iterations` = nrow(mh_fit$draws),
+  `Burn-in draws` = burn_in,
+  `Posterior draws used` = nrow(post_full),
+  `Acceptance rate` = round(mh_fit$accept_rate, 3)
+) %>%
+  kable()
+```
+
+The acceptance rate is within the recommended 25%–40% range, suggesting that the proposal step size is reasonable for this random-walk Metropolis sampler.
+
+To check whether the chain mixed reasonably well after burn-in, I plotted trace plots for three of the utility coefficients using only the post-burn-in draws. A stable chain should look like a noisy horizontal band rather than a slow drift.
+
+```{r}
+#| echo: true
+#| warning: false
+#| fig-cap: "Trace plots for selected Bayesian MNL utility coefficients."
+#| fig-width: 9
+#| fig-height: 5
+
+trace_df <- as_tibble(post_free) %>%
+  mutate(iteration = row_number() + burn_in) %>%
+  rename(
+    beta_2 = V1,
+    beta_3 = V2,
+    beta_4 = V3,
+    beta_5 = V4,
+    beta_6 = V5,
+    beta_7 = V6,
+    beta_8 = V7,
+    beta_9 = V8,
+    beta_10 = V9
+  ) %>%
+  select(iteration, beta_2, beta_5, beta_9) %>%
+  pivot_longer(
+    cols = starts_with("beta_"),
+    names_to = "parameter",
+    values_to = "value"
+  )
+
+trace_df %>%
+  ggplot(aes(x = iteration, y = value)) +
+  geom_line(linewidth = 0.2) +
+  facet_wrap(~ parameter, scales = "free_y", ncol = 1) +
+  labs(
+    x = "Iteration",
+    y = "Parameter value",
+    title = "MCMC Trace Plots"
+  )
+```
+
+For each posterior draw, I convert the utility coefficients into preference shares using the soft-max transformation. This gives a posterior distribution for each class's share of preference.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+share_draws <- t(apply(post_full, 1, function(beta) {
+  exp(beta) / sum(exp(beta))
+}))
+
+colnames(share_draws) <- paste0("share_", 1:10)
+
+bayes_results <- tibble(
+  Item = 1:10,
+  beta_mean = colMeans(post_full),
+  beta_lower = apply(post_full, 2, quantile, probs = 0.025),
+  beta_upper = apply(post_full, 2, quantile, probs = 0.975),
+  share_mean = colMeans(share_draws),
+  share_lower = apply(share_draws, 2, quantile, probs = 0.025),
+  share_upper = apply(share_draws, 2, quantile, probs = 0.975)
+) %>%
+  left_join(
+    item_labels %>%
+      select(Item = `Item #`, class_name = Item),
+    by = "Item"
+  ) %>%
+  select(
+    Item,
+    class_name,
+    beta_mean,
+    beta_lower,
+    beta_upper,
+    share_mean,
+    share_lower,
+    share_upper
+  ) %>%
+  arrange(desc(share_mean))
+
+bayes_results %>%
+  mutate(
+    beta_mean = round(beta_mean, 3),
+    beta_lower = round(beta_lower, 3),
+    beta_upper = round(beta_upper, 3),
+    share_mean = round(share_mean, 3),
+    share_lower = round(share_lower, 3),
+    share_upper = round(share_upper, 3)
+  ) %>%
+  kable(
+    col.names = c(
+      "Item",
+      "Class",
+      "Posterior mean beta",
+      "Beta 2.5%",
+      "Beta 97.5%",
+      "Posterior mean share",
+      "Share 2.5%",
+      "Share 97.5%"
+    )
+  )
+```
+
+
+```{r}
+#| echo: true
+#| fig-cap: "Bayesian posterior mean preference shares with 95% credible intervals."
+#| fig-width: 9
+#| fig-height: 6
+
+bayes_results %>%
+  ggplot(aes(x = reorder(class_name, share_mean), y = share_mean)) +
+  geom_col() +
+  geom_errorbar(aes(ymin = share_lower, ymax = share_upper), width = 0.2) +
+  coord_flip() +
+  labs(
+    x = "Class",
+    y = "Posterior mean preference share",
+    title = "Bayesian MNL Preference Shares"
+  )
+```
+
+
+The Bayesian estimates are very close to the maximum likelihood estimates. **MGTA 495 Marketing Analytics** remains the top-ranked class, with the largest posterior mean utility and preference share. **MGTA 453 Business Analytics** and **MGTA 455 Customer Analytics** remain near the top, while **MGTA 444 Analytics Consulting** remains at the bottom.
+
+The main value of the Bayesian model is that it gives uncertainty intervals directly for both utility coefficients and preference shares. The widest intervals appear for classes whose preference shares are less precisely estimated, especially in the middle of the ranking where the classes are closer together. This is useful because the posterior distribution shows not only which classes rank higher, but also how uncertain those rankings may be.
+
+
+## Comparing the Three Methods
+
+To compare the three approaches directly, I combine the counts score, the MLE preference share, and the Bayesian posterior mean share into one table. This makes it easier to see whether the methods produce the same broad ranking of MSBA classes.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+counts_compare <- counts_scores %>%
+  mutate(counts_rank = row_number()) %>%
+  select(
+    Item,
+    class_name,
+    counts_score = score,
+    counts_rank
+  )
+
+mle_compare <- mle_results %>%
+  mutate(mle_rank = row_number()) %>%
+  select(
+    Item,
+    mle_share = preference_share,
+    mle_rank
+  )
+
+bayes_compare <- bayes_results %>%
+  mutate(bayes_rank = row_number()) %>%
+  select(
+    Item,
+    bayes_share = share_mean,
+    bayes_rank
+  )
+
+method_comparison <- counts_compare %>%
+  left_join(mle_compare, by = "Item") %>%
+  left_join(bayes_compare, by = "Item") %>%
+  arrange(mle_rank)
+
+method_comparison %>%
+  mutate(
+    counts_score = round(counts_score, 3),
+    mle_share = round(mle_share, 3),
+    bayes_share = round(bayes_share, 3)
+  ) %>%
+  kable(
+    col.names = c(
+      "Item",
+      "Class",
+      "Counts score",
+      "Counts rank",
+      "MLE share",
+      "MLE rank",
+      "Bayes share",
+      "Bayes rank"
+    )
+  )
+```
+
+Because the counts score and preference shares are measured on different scales, the three panels use separate horizontal axes. The goal of the plot is to compare rankings and broad patterns across methods, not to compare raw bar lengths across panels.
+```{r}
+#| echo: true
+#| fig-cap: "Comparison of class preference rankings across counts analysis, MLE MNL, and Bayesian MNL."
+#| fig-width: 10
+#| fig-height: 7
+
+comparison_long <- method_comparison %>%
+  select(
+    Item,
+    class_name,
+    counts_score,
+    mle_share,
+    bayes_share
+  ) %>%
+  pivot_longer(
+    cols = c(counts_score, mle_share, bayes_share),
+    names_to = "method",
+    values_to = "value"
+  ) %>%
+  mutate(
+    method = recode(
+      method,
+      counts_score = "Counts score",
+      mle_share = "MLE share",
+      bayes_share = "Bayes share"
+    )
+  )
+
+comparison_long %>%
+  ggplot(aes(x = reorder(class_name, value), y = value, fill = class_name)) +
+  geom_col(show.legend = FALSE) +
+  coord_flip() +
+  facet_wrap(~ method, scales = "free_x", ncol = 3) +
+  labs(
+    x = "Class",
+    y = "Score or share",
+    title = "Comparison of Preference Estimates Across Methods"
+  )
+```
+
+The three methods tell an extremely consistent story. The ranking is identical across the counts analysis, the maximum likelihood MNL model, and the Bayesian MNL model. **MGTA 495 Marketing Analytics** is ranked first by all three approaches, while **MGTA 444 Analytics Consulting** is ranked last. The next strongest classes are also the same across methods: **MGTA 453 Business Analytics** ranks second and **MGTA 455 Customer Analytics** ranks third.
+
+This agreement suggests that the main preference pattern in the data is strong enough to appear even in the simple descriptive counts. However, the three methods still provide different levels of analytical value. The counts analysis is easy to interpret and gives a quick ranking based on how often each class was selected as best versus worst. The MNL model adds a more formal choice model by estimating utility parameters and converting them into preference shares. The Bayesian model gives a similar ranking and similar preference shares, but it also provides credible intervals, which are useful for understanding uncertainty, especially for middle-ranked classes such as **MGTA 454 Capstone Project** and **MGTA 464 SQL**, where the estimated preference shares are very close.
+
+
+
+## Discussion
+
+Across all three methods, the main substantive finding is clear: students show the strongest preference for **MGTA 495 Marketing Analytics**. This class ranks first in the counts analysis, the maximum likelihood MNL model, and the Bayesian MNL model. **MGTA 453 Business Analytics** and **MGTA 455 Customer Analytics** also consistently rank near the top, which suggests that students in this sample are especially interested in applied analytics courses connected to marketing, business decision-making, and customer behavior. At the other end, **MGTA 444 Analytics Consulting** ranks last across all three methods, followed by **MGTA 451 Marketing/Finance/Operations** and **MGTA 403 AI Math, Programming, and Analytics**. I was a little surprised that the three rankings were completely identical, because I expected at least some small movement in the middle of the ranking after moving from counts to MNL and then to Bayesian estimation.
+
+The biggest thing I learned from coding the likelihood myself is that the worst choice is not just another negative count. In the MNL setup, the best choice is modeled as a choice from the full set of four items, while the worst choice is modeled as a second choice from the remaining items after the best item is removed, with the utilities flipped. That detail helped me understand why MaxDiff data can be connected to a choice model rather than treated only as a simple ranking exercise.
+
+Methodologically, I would use the three approaches for different purposes. The counts analysis is the easiest to explain and would work well for a quick dashboard or executive summary because it directly compares how often each class was picked best versus worst. The maximum likelihood MNL model is more rigorous because it models the choice process explicitly and estimates utility parameters and preference shares. This is helpful when I need a formal model and a single set of point estimates to report. The Bayesian MNL model is most useful when uncertainty matters. Because it produces posterior draws, it is straightforward to calculate credible intervals for derived quantities such as preference shares, and the same framework could be extended to simulations or individual-level preference models.
+
+There are also important caveats. The data come from a self-selected sample of MSBA students, so the results should not be interpreted as the preference ranking for all future MSBA students. Students’ current standing in the program, prior coursework, career goals, and what they have heard from classmates may all affect their choices. Even though the MaxDiff design balances how often each class is shown, item order and survey context could still influence some responses.
+
+If I had more time, I would explore whether preferences differ across student subgroups, such as students with more technical backgrounds versus students with more business-oriented backgrounds. I would also be interested in fitting a hierarchical Bayesian model, because the average ranking is useful, but it may hide meaningful differences in individual student preferences.
+

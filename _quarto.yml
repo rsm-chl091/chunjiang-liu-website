@@ -18,6 +18,8 @@ website:
         text: HW2
       - href: projects/project_3_mle/hw3_questions.qmd
         text: HW3
+      - href: hw4_questions.qmd
+        text: MaxDiff Analysis
 
 format:
   html:
