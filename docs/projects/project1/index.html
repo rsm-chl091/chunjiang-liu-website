@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Chunjiang Liu">
+<meta name="dcterms.date" content="2026-03-14">
+<meta name="description" content="Predicted high-risk customers using XGBoost. Designed retention strategies that increased CLV by SGD 123.7M.">
 
-<title>Chunjiang Liu</title>
+<title>Customer Churn Prediction &amp; Retention Strategy – Chunjiang Liu</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,22 +29,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -81,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Chunjiang Liu</span>
     </a>
   </div>
@@ -92,32 +96,28 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./resume.html"> 
+    <a class="nav-link" href="../../resume.html"> 
 <span class="menu-text">Resume</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./projects.html"> 
+    <a class="nav-link" href="../../projects.html"> 
 <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./hw1.html"> 
+    <a class="nav-link" href="../../hw1.html"> 
 <span class="menu-text">HW1</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./hw2_questions.html"> 
+    <a class="nav-link" href="../../hw2_questions.html"> 
 <span class="menu-text">HW2</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./projects/project_3_mle/hw3_questions.html"> 
-<span class="menu-text">Patent Impact Analysis</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./hw4_questions.html"> 
-<span class="menu-text">MaxDiff Analysis</span></a>
+    <a class="nav-link" href="../../projects/project_3_mle/hw3_questions.html"> 
+<span class="menu-text">HW3</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -133,79 +133,212 @@ ul.task-list li input[type="checkbox"] {
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
+   
   <ul>
-  <li><a href="#welcome-to-my-website" id="toc-welcome-to-my-website" class="nav-link active" data-scroll-target="#welcome-to-my-website">Welcome to my website!</a>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">📌 Overview</a></li>
+  <li><a href="#business-problem" id="toc-business-problem" class="nav-link" data-scroll-target="#business-problem">🎯 Business Problem</a></li>
+  <li><a href="#visualization" id="toc-visualization" class="nav-link" data-scroll-target="#visualization">📈 Visualization</a></li>
+  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">🧩 Approach</a>
   <ul class="collapse">
-  <li><a href="#education" id="toc-education" class="nav-link" data-scroll-target="#education">Education</a></li>
-  <li><a href="#experience" id="toc-experience" class="nav-link" data-scroll-target="#experience">Experience</a></li>
-  <li><a href="#about-me" id="toc-about-me" class="nav-link" data-scroll-target="#about-me">About Me</a></li>
+  <li><a href="#data-feature-engineering" id="toc-data-feature-engineering" class="nav-link" data-scroll-target="#data-feature-engineering">Data &amp; Feature Engineering</a></li>
+  <li><a href="#predictive-modeling" id="toc-predictive-modeling" class="nav-link" data-scroll-target="#predictive-modeling">Predictive Modeling</a></li>
+  <li><a href="#key-drivers-of-churn" id="toc-key-drivers-of-churn" class="nav-link" data-scroll-target="#key-drivers-of-churn">Key Drivers of Churn</a></li>
   </ul></li>
+  <li><a href="#strategy-design" id="toc-strategy-design" class="nav-link" data-scroll-target="#strategy-design">👨🏻‍💻 Strategy Design</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">📊 Results</a></li>
+  <li><a href="#business-impact" id="toc-business-impact" class="nav-link" data-scroll-target="#business-impact">💰 Business Impact</a></li>
+  <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">🧠 Key Takeaways</a></li>
+  <li><a href="#tools" id="toc-tools" class="nav-link" data-scroll-target="#tools">🛠 Tools</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<div class="quarto-about-solana column-body">
-  <div class="about-entity">
-    <div class="entity-contents">
-      <header id="title-block-header" class="quarto-title-block default">
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Chunjiang Liu</h1>
+<h1 class="title">Customer Churn Prediction &amp; Retention Strategy</h1>
 </div>
+
+<div>
+  <div class="description">
+    Predicted high-risk customers using XGBoost.<br>Designed retention strategies that increased CLV by SGD 123.7M.
+  </div>
+</div>
+
+
 <div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Chunjiang Liu </p>
+          </div>
   </div>
-</header> <div class="about-links">
-  <a href="mailto:Chl091@ucsd.edu" class="about-link" rel="" target="">
-    <i class="bi bi-envelope"></i>
-     <span class="about-link-text"></span>
-  </a>
-  <a href="https://www.linkedin.com/in/ucsd-chunjiang-liu" class="about-link" rel="" target="">
-    <i class="bi bi-linkedin"></i>
-     <span class="about-link-text"></span>
-  </a>
-  <a href="https://github.com/rsm-chl091?tab=repositories" class="about-link" rel="" target="">
-    <i class="bi bi-github"></i>
-     <span class="about-link-text"></span>
-  </a>
-  <a href="/files/resume.pdf" class="about-link" rel="" target="">
-    <i class="bi bi-file-earmark-person"></i>
-     <span class="about-link-text"></span>
-  </a>
-</div>
-      <div class="about-contents"><main class="content" id="quarto-document-content">
-
-<section id="welcome-to-my-website" class="level1">
-<h1>Welcome to my website!</h1>
-<p>Hi, I’m <strong>Chunjiang (Leo) Liu</strong>, a Business Analyst based in San Diego. I have experience working with large-scale behavioral and product data, building dashboards, defining KPIs, and turning analysis into actionable business insights. My background combines business analytics, machine learning, and cross-functional collaboration across health tech, education, and real estate.</p>
-<section id="education" class="level2">
-<h2 data-anchor-id="education">Education</h2>
-<p>University of California, San Diego <br>M.S. in Business Analytics, Rady School of Management<br></p>
-<p>University of California, San Diego <br>B.S. in Cognitive Science, specialization in Machine Learning and Neural Computation<br></p>
-</section>
-<section id="experience" class="level2">
-<h2 data-anchor-id="experience">Experience</h2>
-<p>Owaves Inc.&nbsp;| Business Analyst Intern | Nov 2025 – Mar 2026</p>
-<p>Worked on KPI standardization, funnel analysis, executive dashboards, and user behavior insights for a health tech platform.</p>
-<p>Resilience Inc.&nbsp;| Business Analytics Lead Intern | Jul 2024 – Jun 2025</p>
-<p>Led an analytics team, standardized reporting processes, and supported organizational decision-making through KPI tracking and dashboards.</p>
-<p>Zhongchi Group | Data Analyst | Nov 2020 – Sep 2022</p>
-<p>Built data systems, monitored conversion and engagement trends, and supported business operations across multiple offices.</p>
-</section>
-<section id="about-me" class="level2">
-<h2 data-anchor-id="about-me">About Me</h2>
-<p>I’m originally from China and am currently based in San Diego, California. Over the past few years, I’ve studied and worked in analytics-related fields in the United States, building a strong interest in using data to solve real business problems. Beyond work and school, I enjoy movies, fitness, and exploring how data, technology, and human behavior connect in everyday life.</p>
-
-
-</section>
-</section>
-</main></div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 14, 2026</p>
     </div>
-    <img src="files/profile_pic.jpg" class="about-image
-  rounded " style="width: 15em;">
   </div>
-</div>
- <!-- /main -->
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">📌 Overview</h2>
+<p>Telecom companies often struggle with customer churn, but reacting after customers leave is too late.<br>
+In this project, I built a predictive system to identify high-risk customers early and designed targeted retention strategies to reduce churn and increase long-term value.</p>
+<hr>
+</section>
+<section id="business-problem" class="level2">
+<h2 class="anchored" data-anchor-id="business-problem">🎯 Business Problem</h2>
+<p>S-Mobile aimed to shift from reactive retention to a proactive churn prevention strategy.</p>
+<p>Key questions included:</p>
+<ul>
+<li>Which customers are most likely to churn?</li>
+<li>What factors drive churn behavior?</li>
+<li>How can targeted actions reduce churn and improve revenue?</li>
+</ul>
+<hr>
+</section>
+<section id="visualization" class="level2">
+<h2 class="anchored" data-anchor-id="visualization">📈 Visualization</h2>
+<p><img src="S-Mobile Project Cover.png" class="img-fluid"></p>
+</section>
+<section id="approach" class="level2">
+<h2 class="anchored" data-anchor-id="approach">🧩 Approach</h2>
+<section id="data-feature-engineering" class="level3">
+<h3 class="anchored" data-anchor-id="data-feature-engineering">Data &amp; Feature Engineering</h3>
+<ul>
+<li>Processed ~69,000 customer records across training, testing, and real-world datasets<br>
+</li>
+<li>Integrated multiple feature groups:
+<ul>
+<li>Usage behavior (minutes, overage, roaming)</li>
+<li>Account activity (tenure, service calls)</li>
+<li>Device and network quality (handset age, dropped calls)</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="predictive-modeling" class="level3">
+<h3 class="anchored" data-anchor-id="predictive-modeling">Predictive Modeling</h3>
+<ul>
+<li>Built and compared:
+<ul>
+<li>Logistic Regression<br>
+</li>
+<li>XGBoost (final model)</li>
+</ul></li>
+</ul>
+<p><strong>Final model performance (XGBoost):</strong> - AUC: 0.762<br>
+- Captured nonlinear relationships and improved calibration</p>
+<p>To address class imbalance: - Adjusted predicted probabilities from 50% training churn → 2% real-world churn</p>
+<hr>
+</section>
+<section id="key-drivers-of-churn" class="level3">
+<h3 class="anchored" data-anchor-id="key-drivers-of-churn">Key Drivers of Churn</h3>
+<p>Model interpretation revealed:</p>
+<ul>
+<li>Older devices → significantly higher churn risk<br>
+</li>
+<li>High overage usage → increased dissatisfaction<br>
+</li>
+<li>Short tenure → early-stage churn risk<br>
+</li>
+<li>Students → highest-risk segment</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="strategy-design" class="level2">
+<h2 class="anchored" data-anchor-id="strategy-design">👨🏻‍💻 Strategy Design</h2>
+<p>Based on model insights, I designed five targeted retention strategies:</p>
+<ul>
+<li>Device upgrade program<br>
+</li>
+<li>Overage plan optimization<br>
+</li>
+<li>Usage recovery outreach<br>
+</li>
+<li>Proactive retention calls<br>
+</li>
+<li>Network quality improvements</li>
+</ul>
+<hr>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">📊 Results</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Strategy</th>
+<th>New Churn Rate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Baseline</td>
+<td>1.85%</td>
+</tr>
+<tr class="even">
+<td>Device Refresh</td>
+<td><strong>1.54%</strong></td>
+</tr>
+<tr class="odd">
+<td>Other strategies</td>
+<td>1.75% – 1.83%</td>
+</tr>
+</tbody>
+</table>
+<p>👉 The device upgrade strategy delivered the strongest reduction in churn.</p>
+<hr>
+</section>
+<section id="business-impact" class="level2">
+<h2 class="anchored" data-anchor-id="business-impact">💰 Business Impact</h2>
+<ul>
+<li>+SGD 123.72 customer lifetime value (CLV) per user<br>
+</li>
+<li>Scaled to 1M users → ~SGD 123.7M value creation</li>
+</ul>
+<p>This demonstrates that targeted retention strategies significantly outperform reactive approaches.</p>
+<hr>
+</section>
+<section id="key-takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="key-takeaways">🧠 Key Takeaways</h2>
+<ul>
+<li>Predictive models must translate into actionable strategies<br>
+</li>
+<li>Handling class imbalance is critical in real-world applications<br>
+</li>
+<li>Linking model outputs to financial metrics (CLV) makes insights decision-ready</li>
+</ul>
+<hr>
+</section>
+<section id="tools" class="level2">
+<h2 class="anchored" data-anchor-id="tools">🛠 Tools</h2>
+<p>Python · XGBoost · Logistic Regression · Polars · Customer Analytics · CLV Modeling</p>
+
+
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     

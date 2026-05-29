@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Chunjiang Liu">
-<meta name="dcterms.date" content="2026-05-17">
+<meta name="dcterms.date" content="2026-05-28">
 
 <title>Poisson Regression and Maximum Likelihood Estimation – Chunjiang Liu</title>
 <style>
@@ -180,7 +180,11 @@ window.Quarto = {
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="../../projects/project_3_mle/hw3_questions.html" aria-current="page"> 
-<span class="menu-text">HW3</span></a>
+<span class="menu-text">Patent Impact Analysis</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../hw4_questions.html"> 
+<span class="menu-text">MaxDiff Analysis</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -249,7 +253,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 17, 2026</p>
+      <p class="date">May 28, 2026</p>
     </div>
   </div>
   
@@ -274,23 +278,23 @@ window.Quarto = {
 <p>Before fitting the model, I first look at how patent counts differ between Blueprinty customers and non-customers. The outcome variable, <code>patents</code>, records the number of patents awarded to each firm over the last five years. The key explanatory variable is <code>iscustomer</code>, which indicates whether the firm uses Blueprinty’s software.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="vzxjtkfing" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vzxjtkfing table {
+<div id="aivlhrxiqp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#aivlhrxiqp table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vzxjtkfing thead, #vzxjtkfing tbody, #vzxjtkfing tfoot, #vzxjtkfing tr, #vzxjtkfing td, #vzxjtkfing th {
+#aivlhrxiqp thead, #aivlhrxiqp tbody, #aivlhrxiqp tfoot, #aivlhrxiqp tr, #aivlhrxiqp td, #aivlhrxiqp th {
   border-style: none;
 }
 
-#vzxjtkfing p {
+#aivlhrxiqp p {
   margin: 0;
   padding: 0;
 }
 
-#vzxjtkfing .gt_table {
+#aivlhrxiqp .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -316,12 +320,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#vzxjtkfing .gt_caption {
+#aivlhrxiqp .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vzxjtkfing .gt_title {
+#aivlhrxiqp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -333,7 +337,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#vzxjtkfing .gt_subtitle {
+#aivlhrxiqp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -345,7 +349,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#vzxjtkfing .gt_heading {
+#aivlhrxiqp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -357,13 +361,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#vzxjtkfing .gt_bottom_border {
+#aivlhrxiqp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vzxjtkfing .gt_col_headings {
+#aivlhrxiqp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -378,7 +382,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#vzxjtkfing .gt_col_heading {
+#aivlhrxiqp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -398,7 +402,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#vzxjtkfing .gt_column_spanner_outer {
+#aivlhrxiqp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -410,15 +414,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#vzxjtkfing .gt_column_spanner_outer:first-child {
+#aivlhrxiqp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vzxjtkfing .gt_column_spanner_outer:last-child {
+#aivlhrxiqp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vzxjtkfing .gt_column_spanner {
+#aivlhrxiqp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -430,11 +434,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#vzxjtkfing .gt_spanner_row {
+#aivlhrxiqp .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vzxjtkfing .gt_group_heading {
+#aivlhrxiqp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -460,7 +464,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#vzxjtkfing .gt_empty_group_heading {
+#aivlhrxiqp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -475,15 +479,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#vzxjtkfing .gt_from_md > :first-child {
+#aivlhrxiqp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vzxjtkfing .gt_from_md > :last-child {
+#aivlhrxiqp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vzxjtkfing .gt_row {
+#aivlhrxiqp .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -502,7 +506,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#vzxjtkfing .gt_stub {
+#aivlhrxiqp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -515,7 +519,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#vzxjtkfing .gt_stub_row_group {
+#aivlhrxiqp .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -529,15 +533,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#vzxjtkfing .gt_row_group_first td {
+#aivlhrxiqp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vzxjtkfing .gt_row_group_first th {
+#aivlhrxiqp .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vzxjtkfing .gt_summary_row {
+#aivlhrxiqp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -547,16 +551,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#vzxjtkfing .gt_first_summary_row {
+#aivlhrxiqp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vzxjtkfing .gt_first_summary_row.thick {
+#aivlhrxiqp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vzxjtkfing .gt_last_summary_row {
+#aivlhrxiqp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -566,7 +570,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#vzxjtkfing .gt_grand_summary_row {
+#aivlhrxiqp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -576,7 +580,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#vzxjtkfing .gt_first_grand_summary_row {
+#aivlhrxiqp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -586,7 +590,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#vzxjtkfing .gt_last_grand_summary_row_top {
+#aivlhrxiqp .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -596,11 +600,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#vzxjtkfing .gt_striped {
+#aivlhrxiqp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vzxjtkfing .gt_table_body {
+#aivlhrxiqp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -609,7 +613,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#vzxjtkfing .gt_footnotes {
+#aivlhrxiqp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -623,7 +627,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#vzxjtkfing .gt_footnote {
+#aivlhrxiqp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -632,7 +636,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#vzxjtkfing .gt_sourcenotes {
+#aivlhrxiqp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -646,7 +650,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#vzxjtkfing .gt_sourcenote {
+#aivlhrxiqp .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -654,72 +658,72 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#vzxjtkfing .gt_left {
+#aivlhrxiqp .gt_left {
   text-align: left;
 }
 
-#vzxjtkfing .gt_center {
+#aivlhrxiqp .gt_center {
   text-align: center;
 }
 
-#vzxjtkfing .gt_right {
+#aivlhrxiqp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vzxjtkfing .gt_font_normal {
+#aivlhrxiqp .gt_font_normal {
   font-weight: normal;
 }
 
-#vzxjtkfing .gt_font_bold {
+#aivlhrxiqp .gt_font_bold {
   font-weight: bold;
 }
 
-#vzxjtkfing .gt_font_italic {
+#aivlhrxiqp .gt_font_italic {
   font-style: italic;
 }
 
-#vzxjtkfing .gt_super {
+#aivlhrxiqp .gt_super {
   font-size: 65%;
 }
 
-#vzxjtkfing .gt_footnote_marks {
+#aivlhrxiqp .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vzxjtkfing .gt_asterisk {
+#aivlhrxiqp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vzxjtkfing .gt_indent_1 {
+#aivlhrxiqp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vzxjtkfing .gt_indent_2 {
+#aivlhrxiqp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vzxjtkfing .gt_indent_3 {
+#aivlhrxiqp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vzxjtkfing .gt_indent_4 {
+#aivlhrxiqp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vzxjtkfing .gt_indent_5 {
+#aivlhrxiqp .gt_indent_5 {
   text-indent: 25px;
 }
 
-#vzxjtkfing .katex-display {
+#aivlhrxiqp .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#vzxjtkfing div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#aivlhrxiqp div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -905,23 +909,23 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="efaqrvetzh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#efaqrvetzh table {
+<div id="vdzjapdrnw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vdzjapdrnw table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#efaqrvetzh thead, #efaqrvetzh tbody, #efaqrvetzh tfoot, #efaqrvetzh tr, #efaqrvetzh td, #efaqrvetzh th {
+#vdzjapdrnw thead, #vdzjapdrnw tbody, #vdzjapdrnw tfoot, #vdzjapdrnw tr, #vdzjapdrnw td, #vdzjapdrnw th {
   border-style: none;
 }
 
-#efaqrvetzh p {
+#vdzjapdrnw p {
   margin: 0;
   padding: 0;
 }
 
-#efaqrvetzh .gt_table {
+#vdzjapdrnw .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -947,12 +951,12 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   border-left-color: #D3D3D3;
 }
 
-#efaqrvetzh .gt_caption {
+#vdzjapdrnw .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#efaqrvetzh .gt_title {
+#vdzjapdrnw .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -964,7 +968,7 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   border-bottom-width: 0;
 }
 
-#efaqrvetzh .gt_subtitle {
+#vdzjapdrnw .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -976,7 +980,7 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   border-top-width: 0;
 }
 
-#efaqrvetzh .gt_heading {
+#vdzjapdrnw .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -988,13 +992,13 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   border-right-color: #D3D3D3;
 }
 
-#efaqrvetzh .gt_bottom_border {
+#vdzjapdrnw .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#efaqrvetzh .gt_col_headings {
+#vdzjapdrnw .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1009,7 +1013,7 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   border-right-color: #D3D3D3;
 }
 
-#efaqrvetzh .gt_col_heading {
+#vdzjapdrnw .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1029,7 +1033,7 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   overflow-x: hidden;
 }
 
-#efaqrvetzh .gt_column_spanner_outer {
+#vdzjapdrnw .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1041,15 +1045,15 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   padding-right: 4px;
 }
 
-#efaqrvetzh .gt_column_spanner_outer:first-child {
+#vdzjapdrnw .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#efaqrvetzh .gt_column_spanner_outer:last-child {
+#vdzjapdrnw .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#efaqrvetzh .gt_column_spanner {
+#vdzjapdrnw .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1061,11 +1065,11 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   width: 100%;
 }
 
-#efaqrvetzh .gt_spanner_row {
+#vdzjapdrnw .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#efaqrvetzh .gt_group_heading {
+#vdzjapdrnw .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1091,7 +1095,7 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   text-align: left;
 }
 
-#efaqrvetzh .gt_empty_group_heading {
+#vdzjapdrnw .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1106,15 +1110,15 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   vertical-align: middle;
 }
 
-#efaqrvetzh .gt_from_md > :first-child {
+#vdzjapdrnw .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#efaqrvetzh .gt_from_md > :last-child {
+#vdzjapdrnw .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#efaqrvetzh .gt_row {
+#vdzjapdrnw .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1133,7 +1137,7 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   overflow-x: hidden;
 }
 
-#efaqrvetzh .gt_stub {
+#vdzjapdrnw .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1146,7 +1150,7 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   padding-right: 5px;
 }
 
-#efaqrvetzh .gt_stub_row_group {
+#vdzjapdrnw .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1160,15 +1164,15 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   vertical-align: top;
 }
 
-#efaqrvetzh .gt_row_group_first td {
+#vdzjapdrnw .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#efaqrvetzh .gt_row_group_first th {
+#vdzjapdrnw .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#efaqrvetzh .gt_summary_row {
+#vdzjapdrnw .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1178,16 +1182,16 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   padding-right: 5px;
 }
 
-#efaqrvetzh .gt_first_summary_row {
+#vdzjapdrnw .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#efaqrvetzh .gt_first_summary_row.thick {
+#vdzjapdrnw .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#efaqrvetzh .gt_last_summary_row {
+#vdzjapdrnw .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1197,7 +1201,7 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   border-bottom-color: #D3D3D3;
 }
 
-#efaqrvetzh .gt_grand_summary_row {
+#vdzjapdrnw .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1207,7 +1211,7 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   padding-right: 5px;
 }
 
-#efaqrvetzh .gt_first_grand_summary_row {
+#vdzjapdrnw .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1217,7 +1221,7 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   border-top-color: #D3D3D3;
 }
 
-#efaqrvetzh .gt_last_grand_summary_row_top {
+#vdzjapdrnw .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1227,11 +1231,11 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   border-bottom-color: #D3D3D3;
 }
 
-#efaqrvetzh .gt_striped {
+#vdzjapdrnw .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#efaqrvetzh .gt_table_body {
+#vdzjapdrnw .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1240,7 +1244,7 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   border-bottom-color: #D3D3D3;
 }
 
-#efaqrvetzh .gt_footnotes {
+#vdzjapdrnw .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1254,7 +1258,7 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   border-right-color: #D3D3D3;
 }
 
-#efaqrvetzh .gt_footnote {
+#vdzjapdrnw .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1263,7 +1267,7 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   padding-right: 5px;
 }
 
-#efaqrvetzh .gt_sourcenotes {
+#vdzjapdrnw .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1277,7 +1281,7 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   border-right-color: #D3D3D3;
 }
 
-#efaqrvetzh .gt_sourcenote {
+#vdzjapdrnw .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1285,72 +1289,72 @@ f(Y_i \mid \lambda) = \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}.
   padding-right: 5px;
 }
 
-#efaqrvetzh .gt_left {
+#vdzjapdrnw .gt_left {
   text-align: left;
 }
 
-#efaqrvetzh .gt_center {
+#vdzjapdrnw .gt_center {
   text-align: center;
 }
 
-#efaqrvetzh .gt_right {
+#vdzjapdrnw .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#efaqrvetzh .gt_font_normal {
+#vdzjapdrnw .gt_font_normal {
   font-weight: normal;
 }
 
-#efaqrvetzh .gt_font_bold {
+#vdzjapdrnw .gt_font_bold {
   font-weight: bold;
 }
 
-#efaqrvetzh .gt_font_italic {
+#vdzjapdrnw .gt_font_italic {
   font-style: italic;
 }
 
-#efaqrvetzh .gt_super {
+#vdzjapdrnw .gt_super {
   font-size: 65%;
 }
 
-#efaqrvetzh .gt_footnote_marks {
+#vdzjapdrnw .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#efaqrvetzh .gt_asterisk {
+#vdzjapdrnw .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#efaqrvetzh .gt_indent_1 {
+#vdzjapdrnw .gt_indent_1 {
   text-indent: 5px;
 }
 
-#efaqrvetzh .gt_indent_2 {
+#vdzjapdrnw .gt_indent_2 {
   text-indent: 10px;
 }
 
-#efaqrvetzh .gt_indent_3 {
+#vdzjapdrnw .gt_indent_3 {
   text-indent: 15px;
 }
 
-#efaqrvetzh .gt_indent_4 {
+#vdzjapdrnw .gt_indent_4 {
   text-indent: 20px;
 }
 
-#efaqrvetzh .gt_indent_5 {
+#vdzjapdrnw .gt_indent_5 {
   text-indent: 25px;
 }
 
-#efaqrvetzh .katex-display {
+#vdzjapdrnw .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#efaqrvetzh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#vdzjapdrnw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1499,23 +1503,23 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
 <p>R’s built-in <code>glm()</code> function fits exactly the same model using its own internal algorithm (iteratively reweighted least squares). Running it provides an independent check that the hand-coded MLE is correct.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="mqlqsfqnvp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#mqlqsfqnvp table {
+<div id="awtfotzwdi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#awtfotzwdi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#mqlqsfqnvp thead, #mqlqsfqnvp tbody, #mqlqsfqnvp tfoot, #mqlqsfqnvp tr, #mqlqsfqnvp td, #mqlqsfqnvp th {
+#awtfotzwdi thead, #awtfotzwdi tbody, #awtfotzwdi tfoot, #awtfotzwdi tr, #awtfotzwdi td, #awtfotzwdi th {
   border-style: none;
 }
 
-#mqlqsfqnvp p {
+#awtfotzwdi p {
   margin: 0;
   padding: 0;
 }
 
-#mqlqsfqnvp .gt_table {
+#awtfotzwdi .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1541,12 +1545,12 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-left-color: #D3D3D3;
 }
 
-#mqlqsfqnvp .gt_caption {
+#awtfotzwdi .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#mqlqsfqnvp .gt_title {
+#awtfotzwdi .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1558,7 +1562,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-bottom-width: 0;
 }
 
-#mqlqsfqnvp .gt_subtitle {
+#awtfotzwdi .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1570,7 +1574,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-top-width: 0;
 }
 
-#mqlqsfqnvp .gt_heading {
+#awtfotzwdi .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1582,13 +1586,13 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-right-color: #D3D3D3;
 }
 
-#mqlqsfqnvp .gt_bottom_border {
+#awtfotzwdi .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#mqlqsfqnvp .gt_col_headings {
+#awtfotzwdi .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1603,7 +1607,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-right-color: #D3D3D3;
 }
 
-#mqlqsfqnvp .gt_col_heading {
+#awtfotzwdi .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1623,7 +1627,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   overflow-x: hidden;
 }
 
-#mqlqsfqnvp .gt_column_spanner_outer {
+#awtfotzwdi .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1635,15 +1639,15 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   padding-right: 4px;
 }
 
-#mqlqsfqnvp .gt_column_spanner_outer:first-child {
+#awtfotzwdi .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#mqlqsfqnvp .gt_column_spanner_outer:last-child {
+#awtfotzwdi .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#mqlqsfqnvp .gt_column_spanner {
+#awtfotzwdi .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1655,11 +1659,11 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   width: 100%;
 }
 
-#mqlqsfqnvp .gt_spanner_row {
+#awtfotzwdi .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#mqlqsfqnvp .gt_group_heading {
+#awtfotzwdi .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1685,7 +1689,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   text-align: left;
 }
 
-#mqlqsfqnvp .gt_empty_group_heading {
+#awtfotzwdi .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1700,15 +1704,15 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   vertical-align: middle;
 }
 
-#mqlqsfqnvp .gt_from_md > :first-child {
+#awtfotzwdi .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#mqlqsfqnvp .gt_from_md > :last-child {
+#awtfotzwdi .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#mqlqsfqnvp .gt_row {
+#awtfotzwdi .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1727,7 +1731,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   overflow-x: hidden;
 }
 
-#mqlqsfqnvp .gt_stub {
+#awtfotzwdi .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1740,7 +1744,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   padding-right: 5px;
 }
 
-#mqlqsfqnvp .gt_stub_row_group {
+#awtfotzwdi .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1754,15 +1758,15 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   vertical-align: top;
 }
 
-#mqlqsfqnvp .gt_row_group_first td {
+#awtfotzwdi .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#mqlqsfqnvp .gt_row_group_first th {
+#awtfotzwdi .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#mqlqsfqnvp .gt_summary_row {
+#awtfotzwdi .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1772,16 +1776,16 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   padding-right: 5px;
 }
 
-#mqlqsfqnvp .gt_first_summary_row {
+#awtfotzwdi .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#mqlqsfqnvp .gt_first_summary_row.thick {
+#awtfotzwdi .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#mqlqsfqnvp .gt_last_summary_row {
+#awtfotzwdi .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1791,7 +1795,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-bottom-color: #D3D3D3;
 }
 
-#mqlqsfqnvp .gt_grand_summary_row {
+#awtfotzwdi .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1801,7 +1805,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   padding-right: 5px;
 }
 
-#mqlqsfqnvp .gt_first_grand_summary_row {
+#awtfotzwdi .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1811,7 +1815,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-top-color: #D3D3D3;
 }
 
-#mqlqsfqnvp .gt_last_grand_summary_row_top {
+#awtfotzwdi .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1821,11 +1825,11 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-bottom-color: #D3D3D3;
 }
 
-#mqlqsfqnvp .gt_striped {
+#awtfotzwdi .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#mqlqsfqnvp .gt_table_body {
+#awtfotzwdi .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1834,7 +1838,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-bottom-color: #D3D3D3;
 }
 
-#mqlqsfqnvp .gt_footnotes {
+#awtfotzwdi .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1848,7 +1852,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-right-color: #D3D3D3;
 }
 
-#mqlqsfqnvp .gt_footnote {
+#awtfotzwdi .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1857,7 +1861,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   padding-right: 5px;
 }
 
-#mqlqsfqnvp .gt_sourcenotes {
+#awtfotzwdi .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1871,7 +1875,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-right-color: #D3D3D3;
 }
 
-#mqlqsfqnvp .gt_sourcenote {
+#awtfotzwdi .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1879,72 +1883,72 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   padding-right: 5px;
 }
 
-#mqlqsfqnvp .gt_left {
+#awtfotzwdi .gt_left {
   text-align: left;
 }
 
-#mqlqsfqnvp .gt_center {
+#awtfotzwdi .gt_center {
   text-align: center;
 }
 
-#mqlqsfqnvp .gt_right {
+#awtfotzwdi .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#mqlqsfqnvp .gt_font_normal {
+#awtfotzwdi .gt_font_normal {
   font-weight: normal;
 }
 
-#mqlqsfqnvp .gt_font_bold {
+#awtfotzwdi .gt_font_bold {
   font-weight: bold;
 }
 
-#mqlqsfqnvp .gt_font_italic {
+#awtfotzwdi .gt_font_italic {
   font-style: italic;
 }
 
-#mqlqsfqnvp .gt_super {
+#awtfotzwdi .gt_super {
   font-size: 65%;
 }
 
-#mqlqsfqnvp .gt_footnote_marks {
+#awtfotzwdi .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#mqlqsfqnvp .gt_asterisk {
+#awtfotzwdi .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#mqlqsfqnvp .gt_indent_1 {
+#awtfotzwdi .gt_indent_1 {
   text-indent: 5px;
 }
 
-#mqlqsfqnvp .gt_indent_2 {
+#awtfotzwdi .gt_indent_2 {
   text-indent: 10px;
 }
 
-#mqlqsfqnvp .gt_indent_3 {
+#awtfotzwdi .gt_indent_3 {
   text-indent: 15px;
 }
 
-#mqlqsfqnvp .gt_indent_4 {
+#awtfotzwdi .gt_indent_4 {
   text-indent: 20px;
 }
 
-#mqlqsfqnvp .gt_indent_5 {
+#awtfotzwdi .gt_indent_5 {
   text-indent: 25px;
 }
 
-#mqlqsfqnvp .katex-display {
+#awtfotzwdi .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#mqlqsfqnvp div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#awtfotzwdi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2032,23 +2036,23 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
 <p>Because of the log link, each coefficient <span class="math inline">\(\beta_k\)</span> represents the change in <strong>log</strong> expected patents associated with a one-unit change in <span class="math inline">\(X_k\)</span>, holding everything else constant. Exponentiating <span class="math inline">\(\beta_k\)</span> converts this into a multiplicative effect on the expected count: <span class="math inline">\(\exp(\beta_k)\)</span> is the factor by which the expected number of patents is multiplied for a one-unit increase in <span class="math inline">\(X_k\)</span>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="umhbxvgqox" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#umhbxvgqox table {
+<div id="czbwzauhfl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#czbwzauhfl table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#umhbxvgqox thead, #umhbxvgqox tbody, #umhbxvgqox tfoot, #umhbxvgqox tr, #umhbxvgqox td, #umhbxvgqox th {
+#czbwzauhfl thead, #czbwzauhfl tbody, #czbwzauhfl tfoot, #czbwzauhfl tr, #czbwzauhfl td, #czbwzauhfl th {
   border-style: none;
 }
 
-#umhbxvgqox p {
+#czbwzauhfl p {
   margin: 0;
   padding: 0;
 }
 
-#umhbxvgqox .gt_table {
+#czbwzauhfl .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2074,12 +2078,12 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-left-color: #D3D3D3;
 }
 
-#umhbxvgqox .gt_caption {
+#czbwzauhfl .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#umhbxvgqox .gt_title {
+#czbwzauhfl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2091,7 +2095,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-bottom-width: 0;
 }
 
-#umhbxvgqox .gt_subtitle {
+#czbwzauhfl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2103,7 +2107,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-top-width: 0;
 }
 
-#umhbxvgqox .gt_heading {
+#czbwzauhfl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2115,13 +2119,13 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-right-color: #D3D3D3;
 }
 
-#umhbxvgqox .gt_bottom_border {
+#czbwzauhfl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#umhbxvgqox .gt_col_headings {
+#czbwzauhfl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2136,7 +2140,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-right-color: #D3D3D3;
 }
 
-#umhbxvgqox .gt_col_heading {
+#czbwzauhfl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2156,7 +2160,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   overflow-x: hidden;
 }
 
-#umhbxvgqox .gt_column_spanner_outer {
+#czbwzauhfl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2168,15 +2172,15 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   padding-right: 4px;
 }
 
-#umhbxvgqox .gt_column_spanner_outer:first-child {
+#czbwzauhfl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#umhbxvgqox .gt_column_spanner_outer:last-child {
+#czbwzauhfl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#umhbxvgqox .gt_column_spanner {
+#czbwzauhfl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2188,11 +2192,11 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   width: 100%;
 }
 
-#umhbxvgqox .gt_spanner_row {
+#czbwzauhfl .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#umhbxvgqox .gt_group_heading {
+#czbwzauhfl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2218,7 +2222,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   text-align: left;
 }
 
-#umhbxvgqox .gt_empty_group_heading {
+#czbwzauhfl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2233,15 +2237,15 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   vertical-align: middle;
 }
 
-#umhbxvgqox .gt_from_md > :first-child {
+#czbwzauhfl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#umhbxvgqox .gt_from_md > :last-child {
+#czbwzauhfl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#umhbxvgqox .gt_row {
+#czbwzauhfl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2260,7 +2264,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   overflow-x: hidden;
 }
 
-#umhbxvgqox .gt_stub {
+#czbwzauhfl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2273,7 +2277,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   padding-right: 5px;
 }
 
-#umhbxvgqox .gt_stub_row_group {
+#czbwzauhfl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2287,15 +2291,15 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   vertical-align: top;
 }
 
-#umhbxvgqox .gt_row_group_first td {
+#czbwzauhfl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#umhbxvgqox .gt_row_group_first th {
+#czbwzauhfl .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#umhbxvgqox .gt_summary_row {
+#czbwzauhfl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2305,16 +2309,16 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   padding-right: 5px;
 }
 
-#umhbxvgqox .gt_first_summary_row {
+#czbwzauhfl .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#umhbxvgqox .gt_first_summary_row.thick {
+#czbwzauhfl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#umhbxvgqox .gt_last_summary_row {
+#czbwzauhfl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2324,7 +2328,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-bottom-color: #D3D3D3;
 }
 
-#umhbxvgqox .gt_grand_summary_row {
+#czbwzauhfl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2334,7 +2338,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   padding-right: 5px;
 }
 
-#umhbxvgqox .gt_first_grand_summary_row {
+#czbwzauhfl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2344,7 +2348,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-top-color: #D3D3D3;
 }
 
-#umhbxvgqox .gt_last_grand_summary_row_top {
+#czbwzauhfl .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2354,11 +2358,11 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-bottom-color: #D3D3D3;
 }
 
-#umhbxvgqox .gt_striped {
+#czbwzauhfl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#umhbxvgqox .gt_table_body {
+#czbwzauhfl .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2367,7 +2371,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-bottom-color: #D3D3D3;
 }
 
-#umhbxvgqox .gt_footnotes {
+#czbwzauhfl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2381,7 +2385,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-right-color: #D3D3D3;
 }
 
-#umhbxvgqox .gt_footnote {
+#czbwzauhfl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2390,7 +2394,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   padding-right: 5px;
 }
 
-#umhbxvgqox .gt_sourcenotes {
+#czbwzauhfl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2404,7 +2408,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-right-color: #D3D3D3;
 }
 
-#umhbxvgqox .gt_sourcenote {
+#czbwzauhfl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2412,72 +2416,72 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   padding-right: 5px;
 }
 
-#umhbxvgqox .gt_left {
+#czbwzauhfl .gt_left {
   text-align: left;
 }
 
-#umhbxvgqox .gt_center {
+#czbwzauhfl .gt_center {
   text-align: center;
 }
 
-#umhbxvgqox .gt_right {
+#czbwzauhfl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#umhbxvgqox .gt_font_normal {
+#czbwzauhfl .gt_font_normal {
   font-weight: normal;
 }
 
-#umhbxvgqox .gt_font_bold {
+#czbwzauhfl .gt_font_bold {
   font-weight: bold;
 }
 
-#umhbxvgqox .gt_font_italic {
+#czbwzauhfl .gt_font_italic {
   font-style: italic;
 }
 
-#umhbxvgqox .gt_super {
+#czbwzauhfl .gt_super {
   font-size: 65%;
 }
 
-#umhbxvgqox .gt_footnote_marks {
+#czbwzauhfl .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#umhbxvgqox .gt_asterisk {
+#czbwzauhfl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#umhbxvgqox .gt_indent_1 {
+#czbwzauhfl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#umhbxvgqox .gt_indent_2 {
+#czbwzauhfl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#umhbxvgqox .gt_indent_3 {
+#czbwzauhfl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#umhbxvgqox .gt_indent_4 {
+#czbwzauhfl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#umhbxvgqox .gt_indent_5 {
+#czbwzauhfl .gt_indent_5 {
   text-indent: 25px;
 }
 
-#umhbxvgqox .katex-display {
+#czbwzauhfl .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#umhbxvgqox div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#czbwzauhfl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2597,23 +2601,23 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
 <p>Averaging <span class="math inline">\(\hat{y}_1 - \hat{y}_0\)</span> across all 1,500 firms produces a single summary number: the expected gain in patents over five years that the model attributes to Blueprinty’s software, averaged across firms with the age and regional composition of the actual sample.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="rtteandfwf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#rtteandfwf table {
+<div id="ugfeejhftl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ugfeejhftl table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#rtteandfwf thead, #rtteandfwf tbody, #rtteandfwf tfoot, #rtteandfwf tr, #rtteandfwf td, #rtteandfwf th {
+#ugfeejhftl thead, #ugfeejhftl tbody, #ugfeejhftl tfoot, #ugfeejhftl tr, #ugfeejhftl td, #ugfeejhftl th {
   border-style: none;
 }
 
-#rtteandfwf p {
+#ugfeejhftl p {
   margin: 0;
   padding: 0;
 }
 
-#rtteandfwf .gt_table {
+#ugfeejhftl .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2639,12 +2643,12 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-left-color: #D3D3D3;
 }
 
-#rtteandfwf .gt_caption {
+#ugfeejhftl .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#rtteandfwf .gt_title {
+#ugfeejhftl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2656,7 +2660,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-bottom-width: 0;
 }
 
-#rtteandfwf .gt_subtitle {
+#ugfeejhftl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2668,7 +2672,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-top-width: 0;
 }
 
-#rtteandfwf .gt_heading {
+#ugfeejhftl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2680,13 +2684,13 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-right-color: #D3D3D3;
 }
 
-#rtteandfwf .gt_bottom_border {
+#ugfeejhftl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#rtteandfwf .gt_col_headings {
+#ugfeejhftl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2701,7 +2705,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-right-color: #D3D3D3;
 }
 
-#rtteandfwf .gt_col_heading {
+#ugfeejhftl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2721,7 +2725,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   overflow-x: hidden;
 }
 
-#rtteandfwf .gt_column_spanner_outer {
+#ugfeejhftl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2733,15 +2737,15 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   padding-right: 4px;
 }
 
-#rtteandfwf .gt_column_spanner_outer:first-child {
+#ugfeejhftl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#rtteandfwf .gt_column_spanner_outer:last-child {
+#ugfeejhftl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#rtteandfwf .gt_column_spanner {
+#ugfeejhftl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2753,11 +2757,11 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   width: 100%;
 }
 
-#rtteandfwf .gt_spanner_row {
+#ugfeejhftl .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#rtteandfwf .gt_group_heading {
+#ugfeejhftl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2783,7 +2787,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   text-align: left;
 }
 
-#rtteandfwf .gt_empty_group_heading {
+#ugfeejhftl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2798,15 +2802,15 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   vertical-align: middle;
 }
 
-#rtteandfwf .gt_from_md > :first-child {
+#ugfeejhftl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#rtteandfwf .gt_from_md > :last-child {
+#ugfeejhftl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#rtteandfwf .gt_row {
+#ugfeejhftl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2825,7 +2829,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   overflow-x: hidden;
 }
 
-#rtteandfwf .gt_stub {
+#ugfeejhftl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2838,7 +2842,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   padding-right: 5px;
 }
 
-#rtteandfwf .gt_stub_row_group {
+#ugfeejhftl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2852,15 +2856,15 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   vertical-align: top;
 }
 
-#rtteandfwf .gt_row_group_first td {
+#ugfeejhftl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#rtteandfwf .gt_row_group_first th {
+#ugfeejhftl .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#rtteandfwf .gt_summary_row {
+#ugfeejhftl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2870,16 +2874,16 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   padding-right: 5px;
 }
 
-#rtteandfwf .gt_first_summary_row {
+#ugfeejhftl .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#rtteandfwf .gt_first_summary_row.thick {
+#ugfeejhftl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#rtteandfwf .gt_last_summary_row {
+#ugfeejhftl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2889,7 +2893,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-bottom-color: #D3D3D3;
 }
 
-#rtteandfwf .gt_grand_summary_row {
+#ugfeejhftl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2899,7 +2903,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   padding-right: 5px;
 }
 
-#rtteandfwf .gt_first_grand_summary_row {
+#ugfeejhftl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2909,7 +2913,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-top-color: #D3D3D3;
 }
 
-#rtteandfwf .gt_last_grand_summary_row_top {
+#ugfeejhftl .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2919,11 +2923,11 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-bottom-color: #D3D3D3;
 }
 
-#rtteandfwf .gt_striped {
+#ugfeejhftl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#rtteandfwf .gt_table_body {
+#ugfeejhftl .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2932,7 +2936,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-bottom-color: #D3D3D3;
 }
 
-#rtteandfwf .gt_footnotes {
+#ugfeejhftl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2946,7 +2950,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-right-color: #D3D3D3;
 }
 
-#rtteandfwf .gt_footnote {
+#ugfeejhftl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2955,7 +2959,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   padding-right: 5px;
 }
 
-#rtteandfwf .gt_sourcenotes {
+#ugfeejhftl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2969,7 +2973,7 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   border-right-color: #D3D3D3;
 }
 
-#rtteandfwf .gt_sourcenote {
+#ugfeejhftl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2977,72 +2981,72 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i'\beta).
   padding-right: 5px;
 }
 
-#rtteandfwf .gt_left {
+#ugfeejhftl .gt_left {
   text-align: left;
 }
 
-#rtteandfwf .gt_center {
+#ugfeejhftl .gt_center {
   text-align: center;
 }
 
-#rtteandfwf .gt_right {
+#ugfeejhftl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#rtteandfwf .gt_font_normal {
+#ugfeejhftl .gt_font_normal {
   font-weight: normal;
 }
 
-#rtteandfwf .gt_font_bold {
+#ugfeejhftl .gt_font_bold {
   font-weight: bold;
 }
 
-#rtteandfwf .gt_font_italic {
+#ugfeejhftl .gt_font_italic {
   font-style: italic;
 }
 
-#rtteandfwf .gt_super {
+#ugfeejhftl .gt_super {
   font-size: 65%;
 }
 
-#rtteandfwf .gt_footnote_marks {
+#ugfeejhftl .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#rtteandfwf .gt_asterisk {
+#ugfeejhftl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#rtteandfwf .gt_indent_1 {
+#ugfeejhftl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#rtteandfwf .gt_indent_2 {
+#ugfeejhftl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#rtteandfwf .gt_indent_3 {
+#ugfeejhftl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#rtteandfwf .gt_indent_4 {
+#ugfeejhftl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#rtteandfwf .gt_indent_5 {
+#ugfeejhftl .gt_indent_5 {
   text-indent: 25px;
 }
 
-#rtteandfwf .katex-display {
+#ugfeejhftl .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#rtteandfwf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ugfeejhftl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

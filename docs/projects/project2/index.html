@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Chunjiang Liu">
+<meta name="dcterms.date" content="2024-12-23">
+<meta name="description" content="Predicted nationwide air pollution levels using machine learning, achieving R² of 0.60 and enabling estimation in regions with limited monitoring data.">
 
-<title>Chunjiang Liu</title>
+<title>Predicting Air Pollution Across the U.S. – Chunjiang Liu</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,22 +29,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -81,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Chunjiang Liu</span>
     </a>
   </div>
@@ -92,32 +96,28 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./resume.html"> 
+    <a class="nav-link" href="../../resume.html"> 
 <span class="menu-text">Resume</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./projects.html"> 
+    <a class="nav-link" href="../../projects.html"> 
 <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./hw1.html"> 
+    <a class="nav-link" href="../../hw1.html"> 
 <span class="menu-text">HW1</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./hw2_questions.html"> 
+    <a class="nav-link" href="../../hw2_questions.html"> 
 <span class="menu-text">HW2</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./projects/project_3_mle/hw3_questions.html"> 
-<span class="menu-text">Patent Impact Analysis</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./hw4_questions.html"> 
-<span class="menu-text">MaxDiff Analysis</span></a>
+    <a class="nav-link" href="../../projects/project_3_mle/hw3_questions.html"> 
+<span class="menu-text">HW3</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -133,79 +133,160 @@ ul.task-list li input[type="checkbox"] {
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
+   
   <ul>
-  <li><a href="#welcome-to-my-website" id="toc-welcome-to-my-website" class="nav-link active" data-scroll-target="#welcome-to-my-website">Welcome to my website!</a>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">📌 Overview</a></li>
+  <li><a href="#problem" id="toc-problem" class="nav-link" data-scroll-target="#problem">🎯 Problem</a></li>
+  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">🧩 Approach</a>
   <ul class="collapse">
-  <li><a href="#education" id="toc-education" class="nav-link" data-scroll-target="#education">Education</a></li>
-  <li><a href="#experience" id="toc-experience" class="nav-link" data-scroll-target="#experience">Experience</a></li>
-  <li><a href="#about-me" id="toc-about-me" class="nav-link" data-scroll-target="#about-me">About Me</a></li>
+  <li><a href="#workflow" id="toc-workflow" class="nav-link" data-scroll-target="#workflow">Workflow</a></li>
   </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">📊 Results</a>
+  <ul class="collapse">
+  <li><a href="#key-findings" id="toc-key-findings" class="nav-link" data-scroll-target="#key-findings">Key findings</a></li>
+  </ul></li>
+  <li><a href="#visualization" id="toc-visualization" class="nav-link" data-scroll-target="#visualization">📈 Visualization</a></li>
+  <li><a href="#what-i-learned" id="toc-what-i-learned" class="nav-link" data-scroll-target="#what-i-learned">🧠What I Learned</a></li>
+  <li><a href="#tools" id="toc-tools" class="nav-link" data-scroll-target="#tools">🛠 Tools</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<div class="quarto-about-solana column-body">
-  <div class="about-entity">
-    <div class="entity-contents">
-      <header id="title-block-header" class="quarto-title-block default">
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Chunjiang Liu</h1>
+<h1 class="title">Predicting Air Pollution Across the U.S.</h1>
 </div>
+
+<div>
+  <div class="description">
+    Predicted nationwide air pollution levels using machine learning, achieving R² of 0.60 and enabling estimation in regions with limited monitoring data.
+  </div>
+</div>
+
+
 <div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Chunjiang Liu </p>
+          </div>
   </div>
-</header> <div class="about-links">
-  <a href="mailto:Chl091@ucsd.edu" class="about-link" rel="" target="">
-    <i class="bi bi-envelope"></i>
-     <span class="about-link-text"></span>
-  </a>
-  <a href="https://www.linkedin.com/in/ucsd-chunjiang-liu" class="about-link" rel="" target="">
-    <i class="bi bi-linkedin"></i>
-     <span class="about-link-text"></span>
-  </a>
-  <a href="https://github.com/rsm-chl091?tab=repositories" class="about-link" rel="" target="">
-    <i class="bi bi-github"></i>
-     <span class="about-link-text"></span>
-  </a>
-  <a href="/files/resume.pdf" class="about-link" rel="" target="">
-    <i class="bi bi-file-earmark-person"></i>
-     <span class="about-link-text"></span>
-  </a>
-</div>
-      <div class="about-contents"><main class="content" id="quarto-document-content">
-
-<section id="welcome-to-my-website" class="level1">
-<h1>Welcome to my website!</h1>
-<p>Hi, I’m <strong>Chunjiang (Leo) Liu</strong>, a Business Analyst based in San Diego. I have experience working with large-scale behavioral and product data, building dashboards, defining KPIs, and turning analysis into actionable business insights. My background combines business analytics, machine learning, and cross-functional collaboration across health tech, education, and real estate.</p>
-<section id="education" class="level2">
-<h2 data-anchor-id="education">Education</h2>
-<p>University of California, San Diego <br>M.S. in Business Analytics, Rady School of Management<br></p>
-<p>University of California, San Diego <br>B.S. in Cognitive Science, specialization in Machine Learning and Neural Computation<br></p>
-</section>
-<section id="experience" class="level2">
-<h2 data-anchor-id="experience">Experience</h2>
-<p>Owaves Inc.&nbsp;| Business Analyst Intern | Nov 2025 – Mar 2026</p>
-<p>Worked on KPI standardization, funnel analysis, executive dashboards, and user behavior insights for a health tech platform.</p>
-<p>Resilience Inc.&nbsp;| Business Analytics Lead Intern | Jul 2024 – Jun 2025</p>
-<p>Led an analytics team, standardized reporting processes, and supported organizational decision-making through KPI tracking and dashboards.</p>
-<p>Zhongchi Group | Data Analyst | Nov 2020 – Sep 2022</p>
-<p>Built data systems, monitored conversion and engagement trends, and supported business operations across multiple offices.</p>
-</section>
-<section id="about-me" class="level2">
-<h2 data-anchor-id="about-me">About Me</h2>
-<p>I’m originally from China and am currently based in San Diego, California. Over the past few years, I’ve studied and worked in analytics-related fields in the United States, building a strong interest in using data to solve real business problems. Beyond work and school, I enjoy movies, fitness, and exploring how data, technology, and human behavior connect in everyday life.</p>
-
-
-</section>
-</section>
-</main></div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 23, 2024</p>
     </div>
-    <img src="files/profile_pic.jpg" class="about-image
-  rounded " style="width: 15em;">
   </div>
-</div>
- <!-- /main -->
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">📌 Overview</h2>
+<p>This project applies machine learning to predict annual average air pollution (PM2.5) levels across the United States.</p>
+<p>By combining environmental, geographic, and demographic data, the model estimates pollution in areas without monitoring stations and identifies key drivers of regional air quality differences.</p>
+</section>
+<section id="problem" class="level2">
+<h2 class="anchored" data-anchor-id="problem">🎯 Problem</h2>
+<p>Air pollution monitoring stations are sparsely distributed, especially outside major urban areas, making it difficult to measure pollution exposure at a granular level.</p>
+<p>This creates gaps in environmental data that limit public health analysis and policy decisions.</p>
+<p>The core challenge was:</p>
+<ul>
+<li>Can we predict PM2.5 levels without direct measurements?</li>
+<li>Which variables best explain air pollution variation?</li>
+</ul>
+</section>
+<section id="approach" class="level2">
+<h2 class="anchored" data-anchor-id="approach">🧩 Approach</h2>
+<p>The analysis integrates data from:</p>
+<ul>
+<li>EPA monitoring stations (876 locations)</li>
+<li>NASA satellite data</li>
+<li>U.S. Census data</li>
+</ul>
+<p>A <strong>Random Forest model</strong> was developed to capture nonlinear relationships.</p>
+<section id="workflow" class="level3">
+<h3 class="anchored" data-anchor-id="workflow">Workflow</h3>
+<ul>
+<li>Data cleaning &amp; feature engineering<br>
+</li>
+<li>Correlation analysis<br>
+</li>
+<li>Train/test split (2/3 training, 1/3 testing)<br>
+</li>
+<li>4-fold cross-validation<br>
+</li>
+<li>Hyperparameter tuning</li>
+</ul>
+<p>A <strong>Linear Regression model</strong> was used as a baseline.</p>
+</section>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">📊 Results</h2>
+<p>The final Random Forest model achieved:</p>
+<ul>
+<li>RMSE: <strong>1.72</strong></li>
+<li>R²: <strong>0.60</strong></li>
+</ul>
+<section id="key-findings" class="level3">
+<h3 class="anchored" data-anchor-id="key-findings">Key findings</h3>
+<ul>
+<li>Random Forest outperformed Linear Regression<br>
+</li>
+<li>Stronger performance in high-density regions<br>
+</li>
+<li>Important predictors:
+<ul>
+<li>State</li>
+<li>Road density</li>
+<li>Impervious surface area</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="visualization" class="level2">
+<h2 class="anchored" data-anchor-id="visualization">📈 Visualization</h2>
+<p><img src="air-pollution-cover.png" class="img-fluid"></p>
+<p>The model successfully captured regional pollution patterns across the U.S., with only minor deviations.</p>
+</section>
+<section id="what-i-learned" class="level2">
+<h2 class="anchored" data-anchor-id="what-i-learned">🧠What I Learned</h2>
+<ul>
+<li>Machine learning can fill gaps in spatial data<br>
+</li>
+<li>Cross-validation improves model robustness<br>
+</li>
+<li>Handling multicollinearity is critical in high-dimensional data<br>
+</li>
+<li>Model performance varies across geographic contexts</li>
+</ul>
+</section>
+<section id="tools" class="level2">
+<h2 class="anchored" data-anchor-id="tools">🛠 Tools</h2>
+<p>R · tidymodels · tidyverse · randomForest · ggplot2 · sf</p>
+
+
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     

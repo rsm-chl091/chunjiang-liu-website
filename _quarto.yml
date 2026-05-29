@@ -17,7 +17,7 @@ website:
       - href: hw2_questions.qmd
         text: HW2
       - href: projects/project_3_mle/hw3_questions.qmd
-        text: HW3
+        text: Patent Impact Analysis
       - href: hw4_questions.qmd
         text: MaxDiff Analysis
 
